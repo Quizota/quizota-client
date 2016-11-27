@@ -3,16 +3,55 @@ import { IndexLink, Link } from 'react-router'
 import './Header.scss'
 
 export const Header = () => (
-  <div>
-    <h1>React Redux Starter Kit</h1>
-    <IndexLink to='/' activeClassName='route--active'>
-      Home
-    </IndexLink>
-    {' · '}
-    <Link to='/counter' activeClassName='route--active'>
-      Counter
-    </Link>
-  </div>
+  <header id="Header">
+    <div className="container-fluid inner">
+      <div id="Branding" className="col-md-1">
+        <a href="#">
+        </a>
+      </div>
+      <div className=" col-md-9 main-nav">
+        <ul id="Nav" className="hidden-xs hidden-sm">
+          <li>
+            <IndexLink to='/' activeClassName='route--active'>
+              Home
+            </IndexLink>
+          </li>
+          <li>
+            <IndexLink to='/auth' activeClassName='route--active'>
+              Auth
+            </IndexLink>
+          </li>
+          <li>
+            <IndexLink to='/intro' activeClassName='route--active'>
+              Q&A
+            </IndexLink>
+          </li>
+          <li>
+            <IndexLink to='/rankings' activeClassName='route--active'>
+              Rankings
+            </IndexLink>
+          </li>
+          <li>
+            <IndexLink to='/dashboard' activeClassName='route--active'>
+              Dashboard
+            </IndexLink>
+          </li>
+          <li>
+            <IndexLink to='/game' activeClassName='route--active'>
+              Game
+            </IndexLink>
+          </li>
+          <li>
+            <IndexLink to='/setting' activeClassName='route--active'>
+              Setting
+            </IndexLink>
+          </li>
+        </ul>
+      </div>
+      <div className="col-md-2 icons-wrap">
+      </div>
+    </div>
+    <div className="container-fluid bg"></div>
+  </header>
 )
-
 export default Header
