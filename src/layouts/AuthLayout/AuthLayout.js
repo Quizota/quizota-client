@@ -19,4 +19,4 @@ class AuthLayout extends React.Component {
   </div>
   }
 }
-export  default  AuthLayout
+export default  AuthLayout

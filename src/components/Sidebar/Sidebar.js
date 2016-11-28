@@ -7,7 +7,7 @@ export const Sidebar = () => (
       <div className="userProfile__info ProfileHeader">
         <div className="ProfileHeader__image__container">
           <div className="ProfilePicture">
-            <img src="img/user/original.jpg" alt="" className="ProfileHeader__image u-circular" height="120"
+            <img src="/img/user/original.jpg" alt="" className="ProfileHeader__image u-circular" height="120"
                  width="120"></img>
           </div>
         </div>
@@ -111,7 +111,7 @@ export const Sidebar = () => (
           <div className="ProfileSidebar__list__item">
             <div className="ProfileSidebar__achievementIconWrapper">
 <span className="AchievementIcon">
-<img src="img/archive/archive1.png" alt=""
+<img src="/img/archive/archive1.png" alt=""
      className="ProfileSidebar__achievement__icon"></img>
 </span>
             </div>
@@ -122,7 +122,7 @@ export const Sidebar = () => (
           <div className="ProfileSidebar__list__item">
             <div className="ProfileSidebar__achievementIconWrapper">
 <span className="AchievementIcon">
-<img src="img/archive/archive2.png" alt=""
+<img src="/img/archive/archive2.png" alt=""
      className="ProfileSidebar__achievement__icon"></img>
 </span>
             </div>
@@ -133,7 +133,7 @@ export const Sidebar = () => (
           <div className="ProfileSidebar__list__item">
             <div className="ProfileSidebar__achievementIconWrapper">
 <span className="AchievementIcon">
-<img src="img/archive/archive3.png" alt=""
+<img src="/img/archive/archive3.png" alt=""
      className="ProfileSidebar__achievement__icon"></img>
 </span>
             </div>
@@ -144,7 +144,7 @@ export const Sidebar = () => (
           <div className="ProfileSidebar__list__item">
             <div className="ProfileSidebar__achievementIconWrapper">
 <span className="AchievementIcon">
-<img src="img/archive/archive4.png" alt=""
+<img src="/img/archive/archive4.png" alt=""
      className="ProfileSidebar__achievement__icon"></img>
 </span>
             </div>
@@ -165,7 +165,7 @@ export const Sidebar = () => (
               <div className="archiveIconLink">
                 <a href="#">
 <span>
-<img src="img/archive/archive_icon.jpg" alt=""></img>
+<img src="/img/archive/archive_icon.jpg" alt=""></img>
 </span>
                 </a>
                 <span className="archiveIconLabel">
