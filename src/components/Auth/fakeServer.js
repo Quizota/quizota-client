@@ -56,9 +56,9 @@ let server = {
                 let error
 
                 if (userExists) {
-                    error = new Error('Wrong password')
+                    error = new Error('Sai mật khẩu')
                 } else {
-                    error = new Error('User doesn\'t exist')
+                    error = new Error('Người dùng không tồn tại')
                 }
 
                 reject(error)
@@ -83,7 +83,7 @@ let server = {
                 resolve({registered: true})
             } else {
                 // Reject with appropiate error
-                reject(new Error('Username already in use'))
+                reject(new Error('Tên tài khoản này đã được sử dụng'))
             }
         })
     },
