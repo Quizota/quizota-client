@@ -18,7 +18,6 @@ let auth = {
    */
   login (username, password) {
     if (auth.loggedIn()) return Promise.resolve(true)
-
     // Post a fake request
     return request.post('/login', { username, password })
       .then(response => {

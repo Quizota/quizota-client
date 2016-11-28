@@ -86,6 +86,7 @@ export function * logout () {
 export function * loginFlow () {
     // Because sagas are generators, doing `while (true)` doesn't block our program
     // Basically here we say "this saga is always listening for actions"
+
     while (true) {
         // And we're listening for `LOGIN_REQUEST` actions and destructuring its payload
         let request = yield take(LOGIN_REQUEST)

@@ -19,36 +19,9 @@ import { clearError } from '../actions'
 /*  Note: Instead of using JSX, we recommend using react-router
  PlainRoute objects to build route definitions.   */
 
-function checkAuth (nextState, replace) {
-    let {loggedIn} = store.getState()
-
-    store.dispatch(clearError())
-
-    // Check if the path isn't dashboard. That way we can apply specific logic to
-    // display/render the path we want to
-    if (nextState.location.pathname !== '/dashboard') {
-        if (loggedIn) {
-            if (nextState.location.state && nextState.location.pathname) {
-                replace(nextState.location.pathname)
-            } else {
-                replace('/auth')
-            }
-        }
-    } else {
-        // If the user is already logged in, forward them to the homepage
-        if (!loggedIn) {
-            if (nextState.location.state && nextState.location.pathname) {
-                replace(nextState.location.pathname)
-            } else {
-                replace('/auth')
-            }
-        }
-    }
-}
 export const createRoutes = (store) => ([
     {
         path: '/',
-        onEnter: checkAuth,
         component: CoreLayout,
         indexRoute: Home,
         childRoutes: [
@@ -69,30 +42,26 @@ export const createRoutes = (store) => ([
     },
     {
         path: '/dashboard',
-        onEnter: checkAuth,
         component: CoreLayout,
-        indexRoute: DashboardRoute(store),
+        indexRoute: DashboardRoute,
         childRoutes: [
             GameRoute(store)
         ]
     },
     {
         path: 'game',
-        onEnter: checkAuth,
         component: CoreLayout,
         indexRoute: GameRoute(store),
         childRoutes: []
     },
     {
         path: 'rankings',
-        onEnter: checkAuth,
         component: CoreLayout,
         indexRoute: GameRoute(store),
         childRoutes: []
     },
     {
         path: 'game/:gameId',
-        onEnter: checkAuth,
         component: CoreLayout,
         indexRoute: GameRoute(store),
         childRoutes: []

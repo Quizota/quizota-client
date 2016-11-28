@@ -2,13 +2,13 @@ import React, {Component} from 'react'
 import DocumentTitle from 'react-document-title'
 import {connect} from 'react-redux'
 import Form from '../../../commons/Form'
-import {loginRequest} from '../../../actions'
+import {registerRequest} from '../../../actions'
 
 class AuthView extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props)
 
-        this._login = this._login.bind(this)
+        this._register = this._register.bind(this)
     }
 
     render() {
@@ -16,20 +16,15 @@ class AuthView extends Component {
         let {formState, currentlySending, error} = this.props.data.authFormReducer
         console.log(formState)
         return (
-            <div className='form-page__wrapper'>
-                <div className='form-page__form-wrapper'>
-                    <div className='form-page__form-header'>
-                        <h2 className='form-page__form-heading'>Login</h2>
-                    </div>
-                    <Form data={formState} dispatch={dispatch} history={this.props.history} onSubmit={this._login}
-                          btnText={'Login'} error={error} currentlySending={currentlySending}/>
-                </div>
+            <div className='auth-block auth-block__register'>
+                <Form data={formState} dispatch={dispatch} history={this.props.history} onSubmit={this._register}
+                      btnText={'Bắt đầu trò chơi'} error={error} currentlySending={currentlySending}/>
             </div>
         )
     }
 
-    _login(username, password) {
-        this.props.dispatch(loginRequest({username, password}))
+    _register(username, password) {
+        this.props.dispatch(registerRequest({username, password}))
     }
 }
 

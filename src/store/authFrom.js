@@ -32,7 +32,6 @@ let initialState = {
 
 
 export default function formReducer (state = initialState, action) {
-    console.log(action.type)
     switch (action.type) {
         case CHANGE_FORM:
             return {...state, formState: action.newFormState}
