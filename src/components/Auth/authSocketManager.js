@@ -2,7 +2,7 @@
  * Fake XMLHttpRequest wrapper
  */
 
-import server from './fakeServer'
+import server from '../../components/SocketManager/MainSocketManager'
 
 server.init()
 

@@ -31,22 +31,10 @@
 @import './components/video';
 @import './components/header-area';
 @import './components/image';
-@import './components/events';
-@import './components/news-list';
-@import './components/search-result';
 @import './components/form-control';
-@import './components/teaching';
 @import './components/breadcrumbs';
-@import './components/education-structure';
-@import './components/teamwork';
-@import './components/cookie';
-@import './components/fact-row';
-@import './components/schedule';
-@import './components/large-header';
-@import './components/education-selector';
 @import './components/list-subjects';
 @import './components/buttons';
-@import './pages/landing';
 @import './pages/auth';
 @import './pages/dashboard';
 @import './pages/finding',
@@ -54,7 +42,8 @@
 './bourbon/addons/progress',
 './components/games/greateNumber',
 './pages/result',
-'./pages/settings';
+'./pages/settings',
+'./pages/game';
 
 html{
   font-size: $emBase;
@@ -155,19 +144,6 @@ input.valid, select.valid, textarea.valid {
   // background-color: $brand-success;
 }
 
-input[type=text],
-input[type=email],
-input[type=password],
-input[type=number],
-input[type=search],
-textarea{
-  border: 1px solid #e1e1e1;
-  display: block;
-  width: 100%;
-  margin: 5px 0;
-  line-height: $bodyLineHeight;
-}
-
 label > * { pointer-events: none; }
 
 
@@ -180,7 +156,7 @@ label > * { pointer-events: none; }
 
 @media #{$desktopLargeUp}{
   body{
-    background: #c8c8c8 url(/img/landing/intro_bg.jpg) center bottom no-repeat;
+    background: #c8c8c8 url("http://localhost:3001/img/landing/intro_bg.jpg") center bottom no-repeat;
     background-attachment: fixed;
     background-size: cover;
   }
@@ -236,4 +212,14 @@ label > * { pointer-events: none; }
     font-size: 11px;
     line-height: 15px;
   }
+}
+* {
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
 }

@@ -3,9 +3,9 @@ import CoreLayout from '../layouts/CoreLayout/CoreLayout'
 import OneColumnLayout from  '../layouts/OneColumnLayout/OneColumnLayout'
 import AuthLayout from '../layouts/AuthLayout/AuthLayout'
 import createQZTMiddleware from 'redux-saga'
-import { createStore, applyMiddleware } from 'redux'
+import {createStore, applyMiddleware} from 'redux'
 import createLogger from 'redux-logger'
-import { Provider } from 'react-redux'
+import {Provider} from 'react-redux'
 
 import Home from './Home'
 import IntroRoute from './Intro'
@@ -13,59 +13,91 @@ import DashboardRoute from './Dashboard'
 import GameRoute from './Game'
 import AuthRoute from './AuthMain'
 import SettingRoute from './Setting'
-import { clearError } from '../actions'
-
+import {clearError} from '../actions'
+import {store} from '../main'
 
 /*  Note: Instead of using JSX, we recommend using react-router
  PlainRoute objects to build route definitions.   */
+function checkAuth(nextState, replace) {
+  let {loggedIn} = store.getState()
+  let {newUser} = store.getState()
+
+  store.dispatch(clearError())
+  // Check if the path isn't dashboard. That way we can apply specific logic to
+  // display/render the path we want to
+  if (nextState.location.pathname !== '/intro') {
+    if (loggedIn) {
+      if (nextState.location.state && nextState.location.pathname) {
+        replace(nextState.location.pathname)
+      } else {
+        replace('/dashboard')
+      }
+    }
+  } else {
+    // If the user is already logged in, forward them to the homepage
+    if (!loggedIn) {
+      if (nextState.location.state && nextState.location.pathname) {
+        replace(nextState.location.pathname)
+      } else {
+        replace('/intro')
+      }
+    }
+  }
+}
 
 export const createRoutes = (store) => ([
-    {
-        path: '/',
-        component: CoreLayout,
-        indexRoute: Home,
-        childRoutes: [
-            IntroRoute(store)
-        ]
-    },
-    {
-        path: '/auth',
-        component: AuthLayout,
-        indexRoute: AuthRoute,
-        childRoutes: []
-    },
-    {
-        path: '/setting',
-        component: OneColumnLayout,
-        indexRoute: SettingRoute,
-        childRoutes: []
-    },
-    {
-        path: '/dashboard',
-        component: CoreLayout,
-        indexRoute: DashboardRoute,
-        childRoutes: [
-            GameRoute(store)
-        ]
-    },
-    {
-        path: 'game',
-        component: CoreLayout,
-        indexRoute: GameRoute(store),
-        childRoutes: []
-    },
-    {
-        path: 'rankings',
-        component: CoreLayout,
-        indexRoute: GameRoute(store),
-        childRoutes: []
-    },
-    {
-        path: 'game/:gameId',
-        component: CoreLayout,
-        indexRoute: GameRoute(store),
-        childRoutes: []
-    }
+  {
+    path: '/',
+    onEnter: checkAuth,
+    component: CoreLayout,
+    indexRoute: Home
+  },
+  {
+    path: '/intro',
+    component: AuthLayout,
+    indexRoute: IntroRoute,
+    childRoutes: []
+  },
+  {
+    path: '/auth',
+    onEnter: checkAuth,
+    component: AuthLayout,
+    indexRoute: AuthRoute,
+    childRoutes: []
+  },
+  {
+    path: '/setting',
+    component: OneColumnLayout,
+    indexRoute: SettingRoute,
+    childRoutes: []
+  },
+  {
+    path: '/dashboard',
+    onEnter: checkAuth,
+    component: CoreLayout,
+    indexRoute: DashboardRoute,
+    childRoutes: [
+      GameRoute(store)
+    ]
+  },
+  {
+    path: 'game',
+    component: CoreLayout,
+    indexRoute: GameRoute(store),
+    childRoutes: []
+  },
+  {
+    path: 'rankings',
+    component: CoreLayout,
+    indexRoute: GameRoute(store),
+    childRoutes: []
+  },
+  {
+    path: 'game/:gameId',
+    component: CoreLayout,
+    indexRoute: GameRoute(store),
+    childRoutes: []
+  }
 ])
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically

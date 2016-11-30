@@ -1,26 +1,25 @@
 import React from 'react'
-import Header from '../../components/Header'
+import Footer from '../../components/Footer'
 import Sidebar from '../../components/Sidebar'
 import './CoreLayout.scss'
 import '../../styles/core.scss'
 
-export const CoreLayout = ({ children }) => (
-  <div>
-    <Header />
-    <div className='core-layout__viewport'>
-      <div className="dashboard">
-        <div className="container-fluid">
-          <Sidebar />
-          {children}
+class CoreLayout extends React.Component {
+  render() {
+    return (
+      <div>
+        <div className='core-layout__viewport'>
+          <div className="dashboard">
+            <div className="container-fluid">
+              <Sidebar />
+              {this.props.children}
+            </div>
           </div>
         </div>
-
-    </div>
-  </div>
-)
-
-CoreLayout.propTypes = {
-  children : React.PropTypes.element.isRequired
+        <Footer></Footer>
+      </div>
+    )
+  }
 }
 
 export default CoreLayout

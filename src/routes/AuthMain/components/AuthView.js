@@ -3,32 +3,31 @@ import DocumentTitle from 'react-document-title'
 import {connect} from 'react-redux'
 import Form from '../../../commons/Form'
 import {registerRequest} from '../../../actions'
-const io = require('socket.io-client');
-var socket = io('http://localhost:8000/');
-socket.on('connect', function(){
-    console.log('Thông báo: Đã kết nối đến máy chủ trò chơi')
-});
-socket.on('event', function(data){
-    console.log('Dữ liệu', data)
-});
-socket.on('disconnect', function(){
-    console.log('Thông báo: Chấm dứt kết nối với máy chủ trò chơi')
-});
+import './AuthView.scss'
+import socket from '../../../SocketIO'
+
 class AuthView extends Component {
+
     constructor(props) {
         super(props);
-
         this._register = this._register.bind(this)
     }
-
+    componentDidMount() {
+      socket.connectSocket('dddd')
+    }
     render() {
+
         let {dispatch} = this.props;
         let {formState, currentlySending, error} = this.props.data.authFormReducer;
         console.log(formState);
         return (
-            <div className='auth-block auth-block__register'>
+            <div id='login'>
+              <div className='noise'></div>
+              <div className='dark'></div>
+              <div className='wrap'>
                 <Form data={formState} dispatch={dispatch} history={this.props.history} onSubmit={this._register}
                       btnText={'Bắt đầu trò chơi'} error={error} currentlySending={currentlySending}/>
+                </div>
             </div>
         )
     }

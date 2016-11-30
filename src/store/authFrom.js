@@ -27,6 +27,7 @@ let initialState = {
     },
     error: '',
     currentlySending: false,
+    newUser: true,
     loggedIn: auth.loggedIn()
 }
 

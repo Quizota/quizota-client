@@ -1,6 +1,6 @@
 //== Fonts:
 $emBase: 10px;
-$font-family-sans-serif:  -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-family-sans-serif:  "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $font-size-base:          12px !default;
 $line-height-base:        20/15 !default; // 1.428571429 !default; // 20/14
 
@@ -8,7 +8,8 @@ $line-height-base:        20/15 !default; // 1.428571429 !default; // 20/14
 //== Colors:
 $brand-primary: #ff5454;
 $brand-overlay-color: rgba(23, 9, 9, 0.9);
-
+$brand-primary-dark: #fb3c3c;
+$brand-primary-dark2: #fb2626;
 $brand-success: #2d9b73;
 $brand-success-dark: #064f44; // 1e9c6e
 
@@ -70,6 +71,7 @@ $screen-desktop:             $screen-md-min !default;
 // Large screen / wide desktop
 // Note: Deprecated $screen-lg and $screen-lg-desktop as of v3.0.1
 $screen-lg:                  1396px !default;
+$screen-fw: 100% !default;
 $screen-lg-min:              $screen-lg !default;
 $screen-lg-desktop:          $screen-lg-min !default;
 
@@ -113,7 +115,7 @@ $desktopLargeUp: "(min-width: #{$screen-lg-min})"; // >= 1396
 
 // Fonts
 $font-path:        "/fonts" !default;
-$the-branding-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$the-branding-font: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $bodyFontSize: 14px;
 $bodyLineHeight: 17px;
 $bodyFontSizeDesktop: 13px;
@@ -121,10 +123,10 @@ $bodyLineHeightDesktop: 20px;
 
 
 // Misc
-$headerHeight: 55px;
-$headerHeightDesktop: 55px;
+$headerHeight: 0px;
+$headerHeightDesktop: 0px;
 $sidePadding: 15px;
-$sidePaddingDesktop: 34px;
+$sidePaddingDesktop: 0px;
 $searchHeight: 75px;
 $searchHeightDesktop: 80px;
 $sideNavHeaderHeight: 60px;

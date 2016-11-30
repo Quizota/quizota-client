@@ -4,9 +4,9 @@
 }
 
 .container-fluid{
-	padding-left: $sidePadding;
-	padding-right: $sidePadding;
-	max-width: $screen-lg;
+	padding-left: $sidePaddingDesktop;
+	padding-right: $sidePaddingDesktop;
+	max-width: $screen-fw;
 	.row.full {
 		margin-left: -$sidePadding;
 		margin-right: -$sidePadding;
@@ -20,9 +20,9 @@
 .main{
 	>.container-fluid, >.clear{
 	}
-	
+
 	>.clear{
-		max-width: $screen-lg;
+		max-width: $screen-fw;
 		margin-right: auto;
 		margin-left: auto;
 	}

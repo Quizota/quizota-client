@@ -5,7 +5,7 @@
 // Sagas help us gather all our side effects (network requests in this case) in one place
 
 import {hashSync} from 'bcryptjs'
-import genSalt from '../Auth/salt'
+import genSalt from '../SocketManager/salt'
 import {browserHistory} from 'react-router'
 import {take, call, put, fork, race} from 'redux-saga/effects'
 import auth from '../../components/Auth'

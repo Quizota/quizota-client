@@ -2,7 +2,7 @@ import React from 'react'
 import './Sidebar.scss'
 
 export const Sidebar = () => (
-  <div className="col-md-4 dashboard__sidebar">
+  <div className="dashboard__sidebar">
     <div className="userProfile ">
       <div className="userProfile__info ProfileHeader">
         <div className="ProfileHeader__image__container">
@@ -36,24 +36,6 @@ export const Sidebar = () => (
             Lorem ipsum dolor sit amet.
           </div>
         </div>
-        <div className="ProfileHeader ProfileHeader__banners">
-          <div className="ProfileBanners">
-            <div className="ProfileBanner">
-              <div className="ProfileBanner__content">
-                <div className="ProfileBanner__content__title">
-                  <span>Best in Vietnam Map</span>
-                </div>
-                <div className="ProfileBanner__content__subtitle">
-                  <span>Tại Việt Nam, Tháng 11/2016</span>
-                </div>
-              </div>
-
-            </div>
-            <div className="ProfileBanners__breadcrumbs"></div>
-          </div>
-
-        </div>
-
       </div>
       <section className="ProfileCounts u-clearfix u-antialiased">
         <div className="ProfileCounts__item">
@@ -66,7 +48,7 @@ export const Sidebar = () => (
         </div>
         <div className="ProfileCounts__item">
           <div className="ProfileCounts__item__string">Win rate</div>
-          <div className="ProfileCounts__item__value ProfileCounts__item__value--winrate">60%</div>
+          <div className="ProfileCounts__item__value ProfileCounts__item__value--winrate">82%</div>
         </div>
       </section>
       <hr className="ProfileSidebar__divider"></hr>
