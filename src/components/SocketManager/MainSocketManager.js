@@ -66,6 +66,7 @@ let server = {
       }
     })
   },
+
   /**
    * Pretends to register a user
    *

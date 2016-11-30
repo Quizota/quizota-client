@@ -13,6 +13,7 @@ import DashboardRoute from './Dashboard'
 import GameRoute from './Game'
 import AuthRoute from './AuthMain'
 import SettingRoute from './Setting'
+import ScoreRoute from './Score'
 import {clearError} from '../actions'
 import {store} from '../main'
 
@@ -76,14 +77,17 @@ export const createRoutes = (store) => ([
     onEnter: checkAuth,
     component: CoreLayout,
     indexRoute: DashboardRoute,
-    childRoutes: [
-      GameRoute(store)
-    ]
   },
   {
     path: 'game',
     component: CoreLayout,
     indexRoute: GameRoute(store),
+    childRoutes: []
+  },
+  {
+    path: 'score',
+    component: CoreLayout,
+    indexRoute: ScoreRoute(store),
     childRoutes: []
   },
   {
