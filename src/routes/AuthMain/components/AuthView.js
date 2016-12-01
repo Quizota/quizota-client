@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import DocumentTitle from 'react-document-title'
+import {IndexLink, Link} from 'react-router'
 import {connect} from 'react-redux'
 import Form from '../../../commons/Form'
 import {registerRequest} from '../../../actions'
 import './AuthView.scss'
-import socket from '../../../SocketIO'
 
 class AuthView extends Component {
 
@@ -13,7 +13,11 @@ class AuthView extends Component {
         this._register = this._register.bind(this)
     }
     componentDidMount() {
-      socket.connectSocket('dddd')
+      let elementWillShow = ['submit']
+      for (var item in elementWillShow) {
+        let itemClass = document.getElementById(elementWillShow[item]).classList
+        itemClass.add('show')
+      }
     }
     render() {
 
@@ -25,8 +29,11 @@ class AuthView extends Component {
               <div className='noise'></div>
               <div className='dark'></div>
               <div className='wrap'>
+                <h3>Tham gia</h3>
+                <h4>Cài đặt tài khoản</h4>
                 <Form data={formState} dispatch={dispatch} history={this.props.history} onSubmit={this._register}
                       btnText={'Bắt đầu trò chơi'} error={error} currentlySending={currentlySending}/>
+                <Link to='/dashboard' >Skip</Link>
                 </div>
             </div>
         )

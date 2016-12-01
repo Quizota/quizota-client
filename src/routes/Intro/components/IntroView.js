@@ -1,29 +1,45 @@
 import React, {Component} from 'react'
 import DocumentTitle from 'react-document-title'
-import { IndexLink, Link } from 'react-router'
+import {IndexLink, Link} from 'react-router'
 import {connect} from 'react-redux'
 import './IntroView.scss'
 
 class IntroView extends Component {
+  componentDidMount() {
+    let elementWillShow = ['home','ws2','ws3','ws4', 'ws5', 'ws6']
+    for (var item in elementWillShow) {
+      let itemClass = document.getElementById(elementWillShow[item]).classList
+      itemClass.add('show')
+    }
+  }
+  componentWillUnMount() {
+    let elementWillShow = ['home','ws2','ws3','ws4', 'ws5', 'ws6']
+    for (var item in elementWillShow) {
+      let itemClass = document.getElementById(elementWillShow[item]).classList
+      itemClass.remove('show')
+    }
+  }
+
   render() {
     return (
-      <seciton id="home" className="show">
-        <div id="home-noise"></div>
-        <div id="home-dark"></div>
-        <div className="wrap-pers">
-          <div className="wrap">
-            <div className="logo show">
-              <h1 className="show">
+      <div className="wrapFS">
+        <seciton id="home" style={{opacity : `1`}}>
+          <div id="home-noise"></div>
+          <div id="home-dark"></div>
+          <div className="wrap-pers">
+            <div className="wrap">`
+              <div id="ws2" className="logo"></div>
+              <h1 id="ws3">
                 Quiz Over The Air
               </h1>
-              <h2 className="show">
+              <h2 id="ws4">
                 It's game
               </h2>
-              <span className="line_vertical show">
+              <span id="ws6" className="line_vertical">
                 <span className="indent">
                 </span>
               </span>
-              <Link to={`auth`} className="gotogame show">
+              <Link to={`auth`} id="ws5" className="gotogame">
                 <span className="wrap-slash-a">
                   <span className="ghost-a"></span>
                   <span className="slash-a"></span>
@@ -47,8 +63,8 @@ class IntroView extends Component {
               </Link>
             </div>
           </div>
-        </div>
-      </seciton>
+        </seciton>
+      </div>
     )
   }
 }

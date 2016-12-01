@@ -1,6 +1,7 @@
 import React from 'react'
 import { IndexLink, Link } from 'react-router'
 import './GameView.scss'
+import MapPickerView from '../../../components/MapPicker/components/MapPickerView'
 
 const nameAlphaCSS = {
   left: '-37px'
@@ -32,36 +33,38 @@ class GameView extends React.Component{
           </div>
           <div className="dashboard__main">
             <div className="home__findingMatch home__activity">
-              <div id="quizota-score" className="opaque">
-                <div className="name-alpha" style={ nameAlphaCSS }>Hoi</div>
-                <span className="score-alpha-glow score-glow">
-                </span>
-                <div className="score-alpha">
-                  <span style={ scoreAlphaGlowlightCSS }>
-                    <i className="glow"></i>
+              <div className="score-overlay"></div>
+                <div id="quizota-score" className="opaque">
+                  <div className="name-alpha" style={ nameAlphaCSS }>Hoi</div>
+                  <span className="score-alpha-glow score-glow">
                   </span>
-                </div>
-                {/*Check point*/}
-                <div className="checkpoint">
-                  <h4>
-                    00:10
-                  </h4>
-                  <div className="position">
-                    <span></span>
+                  <div className="score-alpha">
+                    <span style={ scoreAlphaGlowlightCSS }>
+                      <i className="glow"></i>
+                    </span>
                   </div>
-                </div>
-                {/*vs score*/}
-                <span className="score-vs-glow score-glow">
-                </span>
-                <div className="score-vs">
-                  <span style={ scoreVSGlowlightCSS }>
-                    <i className="glow"></i>
+                  {/*Check point*/}
+                  <div className="checkpoint">
+                    <h4>
+                      00:10
+                    </h4>
+                    <div className="position">
+                      <span></span>
+                    </div>
+                  </div>
+                  {/*vs score*/}
+                  <span className="score-vs-glow score-glow">
                   </span>
+                  <div className="score-vs">
+                    <span style={ scoreVSGlowlightCSS }>
+                      <i className="glow"></i>
+                    </span>
+                  </div>
+                  <div className="name-vs">Phuong</div>
                 </div>
-                <div className="name-vs">Phuong</div>
+              <div className="gameInner" style={{height: `100%`}}>
+                <MapPickerView></MapPickerView>
               </div>
-              <Link to="/score">Go to score </Link>
-              <Link to="/dashboard">Go to dashboard </Link>
               </div>
             </div>
         </section>

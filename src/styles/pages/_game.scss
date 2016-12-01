@@ -7,6 +7,15 @@
   transition: opacity 0.3s ease-in-out;
 }
 
+#game .score-overlay {
+  background-color: rgba(0, 0, 0, 0.8);
+  height: 100px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  z-index: 2;
+}
 #game #quizota-score {
   z-index: 3;
   height: 70px;

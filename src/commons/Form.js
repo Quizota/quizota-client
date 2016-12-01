@@ -41,7 +41,7 @@ class Form extends Component {
                     {this.props.currentlySending ? (
                         <LoadingButton />
                     ) : (
-                        <button className='show' type='submit'>
+                        <button id="submit" type='submit'>
                           <span className="wrapper-svg">
 				<svg x="0px" y="0px" width="256px" height="54px" viewBox="181 131 256 54" enableBackground="new 181 131 256 54">
 <g>

@@ -17,8 +17,15 @@ import ScoreRoute from './Score'
 import {clearError} from '../actions'
 import {store} from '../main'
 
+import socket from '../SocketIO'
+
 /*  Note: Instead of using JSX, we recommend using react-router
  PlainRoute objects to build route definitions.   */
+
+export const connectToSocket = (store) => (
+  socket.connectSocket('dddd')
+)
+
 function checkAuth(nextState, replace) {
   let {loggedIn} = store.getState()
   let {newUser} = store.getState()
@@ -51,7 +58,7 @@ export const createRoutes = (store) => ([
     path: '/',
     onEnter: checkAuth,
     component: CoreLayout,
-    indexRoute: Home
+    indexRoute: DashboardRoute
   },
   {
     path: '/intro',
