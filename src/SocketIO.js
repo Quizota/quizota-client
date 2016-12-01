@@ -1,5 +1,6 @@
 const io = require('socket.io-client');
 var socket = io('http://localhost:8000/')
+let handler = null
 
 class Socket {
   constructor() {
@@ -13,11 +14,29 @@ class Socket {
       socket.on('connect', function(){
         console.log('Thông báo: Đã kết nối đến máy chủ trò chơi')
       });
+
     }
   }
+
+  setHandler(_handler) {
+    handler = _handler
+
+    socket.on('data', function(responseData){
+      console.log('Response data:', responseData)
+      if(handler) {
+        handler(responseData)
+      }
+    });
+  }
+
+  onReceivedData() {
+    socket.on('data', function (responseData) {
+      console.log('socket io:', responseData)
+      return responseData
+    })
+  }
   emitData(event, eventData) {
-    let data = 'dddd'
-    socket.emit('autoRegister', {my: 'data'})
+    socket.emit(event, eventData)
     console.log('go emit data')
   }
 }

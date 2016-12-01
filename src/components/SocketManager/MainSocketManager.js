@@ -80,7 +80,15 @@ let server = {
       if (!this.doesUserExist(username)) {
         users[username] = hashSync(password, salt)
         localStorage.users = JSON.stringify(users)
-        socket.emitData('test')
+
+        socket.setHandler(function (resData) {
+          console.log('res: ', resData)
+
+        })
+
+        socket.emitData('data', { "cmd": "autoRegister", "data": { "displayName": "phuong"} })
+
+
         return
         // Resolve when done
         resolve({registered: true})
