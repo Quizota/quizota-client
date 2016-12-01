@@ -9,7 +9,7 @@ class Form extends Component {
         super(props)
 
         this._onSubmit = this._onSubmit.bind(this)
-        this._changeUsername = this._changeUsername.bind(this)
+        this._changeDisplayName = this._changeDisplayName.bind(this)
         this._changePassword = this._changePassword.bind(this)
     }
 
@@ -23,14 +23,14 @@ class Form extends Component {
                 <span className="placeholder"></span>
                 <input
                     type="text"
-                    id='username'
-                    value={this.props.data.username}
+                    id='displayName'
+                    value={this.props.data.displayName}
                     className='error'
                     autoCorrect='off'
                     autoCapitalize='off'
                     autoComplete='off'
                     placeholder='Tên của bạn'
-                    onChange={this._changeUsername}
+                    onChange={this._changeDisplayName}
                     autoFocus='true'/>
 
               </fieldset>
@@ -61,8 +61,8 @@ class Form extends Component {
         )
     }
 
-    _changeUsername(event) {
-        this._emitChange({...this.props.data, username: event.target.value})
+  _changeDisplayName(event) {
+        this._emitChange({...this.props.data, displayName: event.target.value})
     }
 
     _changePassword(event) {
@@ -75,7 +75,7 @@ class Form extends Component {
 
     _onSubmit(event) {
         event.preventDefault()
-        this.props.onSubmit(this.props.data.username, this.props.data.password)
+        this.props.onSubmit(this.props.data.displayName, this.props.data.password)
     }
 }
 

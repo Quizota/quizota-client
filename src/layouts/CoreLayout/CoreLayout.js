@@ -3,12 +3,10 @@ import Footer from '../../components/Footer'
 import Sidebar from '../../components/Sidebar'
 import './CoreLayout.scss'
 import '../../styles/core.scss'
-import Socket from '../../SocketIO'
 
 class CoreLayout extends React.Component {
 
   componentDidMount() {
-    Socket.emitData('dddd')
   }
   render() {
     return (

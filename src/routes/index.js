@@ -18,37 +18,35 @@ import {clearError} from '../actions'
 import {store} from '../main'
 
 import socket from '../SocketIO'
+let users
+let localStorage
+
+// If we're testing, use a local storage polyfill
+if (global.process && process.env.NODE_ENV === 'test') {
+  localStorage = require('localStorage')
+} else {
+  // If not, use the browser one
+  localStorage = global.window.localStorage
+}
+users = JSON.parse(localStorage.users)
 
 /*  Note: Instead of using JSX, we recommend using react-router
  PlainRoute objects to build route definitions.   */
 
 export const connectToSocket = (store) => (
-  socket.connectSocket('dddd')
+  socket.connectSocket('connect@token')
 )
-
 function checkAuth(nextState, replace) {
-  let {loggedIn} = store.getState()
-  let {newUser} = store.getState()
-
+  let {loggedIn} = store.getState().authFormReducer
+  console.log('state status', store.getState().authFormReducer)
   store.dispatch(clearError())
   // Check if the path isn't dashboard. That way we can apply specific logic to
   // display/render the path we want to
-  if (nextState.location.pathname !== '/intro') {
-    if (loggedIn) {
-      if (nextState.location.state && nextState.location.pathname) {
-        replace(nextState.location.pathname)
-      } else {
-        replace('/dashboard')
-      }
-    }
+  if (loggedIn) {
+
   } else {
-    // If the user is already logged in, forward them to the homepage
-    if (!loggedIn) {
-      if (nextState.location.state && nextState.location.pathname) {
-        replace(nextState.location.pathname)
-      } else {
-        replace('/intro')
-      }
+    if(nextState.location.pathname !== '/auth') {
+      replace('/intro')
     }
   }
 }
@@ -68,7 +66,6 @@ export const createRoutes = (store) => ([
   },
   {
     path: '/auth',
-    onEnter: checkAuth,
     component: AuthLayout,
     indexRoute: AuthRoute,
     childRoutes: []
@@ -87,24 +84,28 @@ export const createRoutes = (store) => ([
   },
   {
     path: 'game',
+    onEnter: checkAuth,
     component: CoreLayout,
     indexRoute: GameRoute(store),
     childRoutes: []
   },
   {
     path: 'score',
+    onEnter: checkAuth,
     component: CoreLayout,
     indexRoute: ScoreRoute(store),
     childRoutes: []
   },
   {
     path: 'rankings',
+    onEnter: checkAuth,
     component: CoreLayout,
     indexRoute: GameRoute(store),
     childRoutes: []
   },
   {
     path: 'game/:gameId',
+    onEnter: checkAuth,
     component: CoreLayout,
     indexRoute: GameRoute(store),
     childRoutes: []

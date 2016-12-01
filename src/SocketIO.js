@@ -29,12 +29,6 @@ class Socket {
     });
   }
 
-  onReceivedData() {
-    socket.on('data', function (responseData) {
-      console.log('socket io:', responseData)
-      return responseData
-    })
-  }
   emitData(event, eventData) {
     socket.emit(event, eventData)
     console.log('go emit data')

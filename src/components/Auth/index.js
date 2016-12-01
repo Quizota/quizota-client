@@ -1,4 +1,5 @@
 import request from './authSocketManager'
+import socket from '../../SocketIO'
 
 let localStorage
 
@@ -36,18 +37,23 @@ let auth = {
    * Checks if a user is logged in
    */
   loggedIn () {
-    return !!localStorage.token
+    let users = JSON.parse(localStorage.users)
+    if (users.userName !== "") {
+      socket.emitData('data', { "cmd": "login", "data": { "userName": users["userName"], "password": users["password"] } })
+      return true
+    }
+    return false
   },
   /**
    * Registers a user and then logs them in
    * @param  {string} username The username of the user
    * @param  {string} password The password of the user
    */
-  register (username, password) {
+  register (displayName, password) {
     // Post a fake request
-    return request.post('/register', { username, password })
+    return request.post('/register', { displayName, password })
     // Log user in after registering
-      .then(() => auth.login(username, password))
+      .then((result) => auth.login(result.userName, result.password))
   },
   onChange () {}
 }

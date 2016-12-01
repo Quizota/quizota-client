@@ -10,6 +10,7 @@ import {
     CLEAR_ERROR
 } from '../actions/constants'
 import auth from '../components/Auth'
+import socket from '../SocketIO'
 
 // ------------------------------------
 // Constants
@@ -22,15 +23,16 @@ export const LOCATION_CHANGE = 'LOCATION_CHANGE'
 // The initial application state
 let initialState = {
     formState: {
-        username: '',
-        password: ''
+        userName: '',
+        password: '',
+        displayName: ''
     },
     error: '',
     currentlySending: false,
     newUser: true,
     loggedIn: auth.loggedIn()
 }
-
+console.log('bat dau:', initialState)
 
 export default function formReducer (state = initialState, action) {
     switch (action.type) {

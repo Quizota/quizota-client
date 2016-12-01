@@ -33,7 +33,6 @@ class AuthView extends Component {
                 <h4>Cài đặt tài khoản</h4>
                 <Form data={formState} dispatch={dispatch} history={this.props.history} onSubmit={this._register}
                       btnText={'Bắt đầu trò chơi'} error={error} currentlySending={currentlySending}/>
-                <Link to='/dashboard' >Skip</Link>
                 </div>
             </div>
         )

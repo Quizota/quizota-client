@@ -88,8 +88,7 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
                 url: markerCorrect
               }}
               key={Date.now()}
-              position={hanoiLatLng}
-              defaultAnimation={4}
+              position={hanoiLatLng} 
             />
           </div>
         )

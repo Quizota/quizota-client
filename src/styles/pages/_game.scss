@@ -7,6 +7,29 @@
   transition: opacity 0.3s ease-in-out;
 }
 
+#quizota-countdown {
+  display: block;
+  position: absolute;
+  width: 200px;
+  left: 50%;
+  margin-left: -100px;
+  -webkit-transform: translate3d(0, -50%, 0);
+  -moz-transform: translate3d(0, -50%, 0);
+  -ms-transform: translate3d(0, -50%, 0);
+  -o-transform: translate3d(0, -50%, 0);
+  transform: translate3d(0, -50%, 0);
+  text-align: center;
+  top: 50%;
+  z-index: 50;
+  span {
+    font-size: 143px;
+    font-family: "neciabold", Arial, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    color: #ffffff;
+  }
+}
+
 #game .score-overlay {
   background-color: rgba(0, 0, 0, 0.8);
   height: 100px;

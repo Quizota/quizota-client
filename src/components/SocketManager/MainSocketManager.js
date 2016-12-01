@@ -1,10 +1,7 @@
-import {hashSync, genSaltSync, compareSync} from 'bcryptjs'
-import genSalt from './salt'
 import socket from '../../SocketIO'
 
 let users
 let localStorage
-let salt = genSaltSync(10)
 
 // If we're testing, use a local storage polyfill
 if (global.process && process.env.NODE_ENV === 'test') {
@@ -19,16 +16,13 @@ let server = {
    * Populates the users, similar to seeding a database in the real world
    */
   init () {
-    if (localStorage.users === undefined || !localStorage.encrypted) {
+    if (localStorage.users === undefined ) {
       // Set default user
-      let john = 'john'
-      let johnSalt = genSalt(john)
-      let johnPass = hashSync('password', johnSalt)
-
       users = {
-        [john]: hashSync(johnPass, salt)
+        "userName": "",
+        "password": "",
+        "displayName": ""
       }
-
       localStorage.users = JSON.stringify(users)
       localStorage.encrypted = true
     } else {
@@ -38,30 +32,40 @@ let server = {
   /**
    * Pretends to log a user in
    *
-   * @param  {string} username The username of the user
+   * @param  {string} userName The username of the user
    * @param  {string} password The password of the user
    */
-  login (username, password) {
-    let userExists = this.doesUserExist(username)
-
+  login (userName, password) {
+    let userExists = this.doesUserExist()
     return new Promise((resolve, reject) => {
+      console.log('go login:',userName, password)
       // If the user exists and the password fits log the user in and resolve
-      if (userExists && compareSync(password, users[username])) {
-        resolve({
-          authenticated: true,
-          // Fake a random token
-          token: Math.random().toString(36).substring(7)
+      console.log(userExists)
+      if (userExists) {
+        socket.setHandler(function (resData) {
+          if (resData.code == "loginSuccess") {
+            console.log('res data:', resData.data.profile)
+            users["userName"] = resData.data.profile.userName
+            users["password"] = resData.data.profile.password
+            users["displayName"] = resData.data.profile.displayName
+            localStorage.users = JSON.stringify(users)
+            resolve({
+              authenticated: true
+            })
+          }
         })
+        let localUserData = JSON.parse(localStorage.users)
+        console.log('localUserData', localUserData)
+        socket.emitData('data', { "cmd": "login", "data": { "userName": users["userName"], "password": users["password"] } })
+        return
       } else {
         // Set the appropiate error and reject
         let error
-
         if (userExists) {
           error = new Error('Sai mật khẩu')
         } else {
           error = new Error('Người dùng không tồn tại')
         }
-
         reject(error)
       }
     })
@@ -70,28 +74,28 @@ let server = {
   /**
    * Pretends to register a user
    *
-   * @param  {string} username The username of the user
+   * @param  {string} displayName The username of the user
    * @param  {string} password The password of the user
    */
-  register (username, password) {
-    console.log('go register');
+  register (displayName, password) {
     return new Promise((resolve, reject) => {
-      // If the username isn't used, hash the password with bcrypt to store it in localStorage
-      if (!this.doesUserExist(username)) {
-        users[username] = hashSync(password, salt)
-        localStorage.users = JSON.stringify(users)
-
+      if (!this.doesUserExist()) {
         socket.setHandler(function (resData) {
-          console.log('res: ', resData)
-
+          if (resData.code == "loginSuccess") {
+            console.log('res data:', resData.data.profile)
+            users["userName"] = resData.data.profile.userName
+            users["password"] = resData.data.profile.password
+            users["displayName"] = resData.data.profile.displayName
+            console.log('registed user:', users)
+            localStorage.users = JSON.stringify(users)
+            resolve(
+              {registered: true, userName: resData.data.profile.userName, password: resData.data.profile.password}
+            )
+          }
         })
-
-        socket.emitData('data', { "cmd": "autoRegister", "data": { "displayName": "phuong"} })
-
-
+        socket.emitData('data', { "cmd": "autoRegister", "data": { "displayName": displayName} })
         return
         // Resolve when done
-        resolve({registered: true})
       } else {
         // Reject with appropiate error
         reject(new Error('Tên tài khoản này đã được sử dụng'))
@@ -109,10 +113,11 @@ let server = {
   },
   /**
    * Checks if a username exists in the db
-   * @param  {string} username The username that should be checked
+   * @param  {string} userName The username that should be checked
    */
-  doesUserExist (username) {
-    return !(users[username] === undefined)
+  doesUserExist () {
+    console.log('user exist', users.userName)
+    return !(users["userName"] === "")
   }
 }
 

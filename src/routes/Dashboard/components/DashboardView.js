@@ -1,22 +1,48 @@
 import React, {Component} from 'react'
-import { IndexLink, Link } from 'react-router'
+import { IndexLink, Link, browserHistory } from 'react-router'
 import DocumentTitle from 'react-document-title'
 import {connect} from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import socket from '../../../SocketIO'
+
+
 var showClass
 
 class DashboardView extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
       mounted: false
     }
+    socket.setHandler(function (resData) {
+      if (resData.code == "notFoundParticipant") {
+        console.log("Can't join game")
+        return
+      } else if (resData.code == "playerJoinBoardSuccess") {
+        browserHistory.push(`/game`);
+        console.log("Tìm được người chơi, chuẩn bị bắt đầu")
+        if (resData.data.length > 0) {
+          console.log("other user data:", resData.data)
+        } else {
+          console.log("waiting for other user")
+        }
+      } else if (resData.code == "newPlayerJoinBoard") {
+        console.log("other user data:", resData)
+      }
+    })
+
+
+  }
+
+  playNow() {
+    console.log('go play now')
+    socket.emitData('data', { "cmd": "playNow", "data": {} })
   }
   componentDidMount() {
 
     this.setState({mounted: true})
     console.log(this.state)
+
   }
   componentDidMount() {
     let elementWillShow = ['ranking-mode', 'beginner-mode']
@@ -48,11 +74,9 @@ class DashboardView extends React.Component {
         <div className="dashboard__main">
           <div className="home__activity">
         <div className="wrap">
-
-          <Link to="/game"> go To Game </Link>
           <h3>Bắt đầu hành trình</h3>
           <h4>Lựa chọn kiểu chơi</h4>
-          <div id="ranking-mode" className={{ showClassName }}>
+          <div id="ranking-mode" className={{ showClassName }} onClick={ this.playNow }>
             <span className="bg_rankingmode">
               <i className="big-arrow arrow-a"></i>
               <i className="big-arrow arrow-b"></i>
@@ -74,7 +98,7 @@ class DashboardView extends React.Component {
             <div className="right">
               <p className="text">
                 Đấu tùy chọn
-                <span>Đấu với bạn bè</span>
+                <span>Đấu với bạn bè (Comming soon!!!)</span>
               </p>
             </div>
           </div>

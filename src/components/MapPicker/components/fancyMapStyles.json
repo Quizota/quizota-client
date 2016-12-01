@@ -3,10 +3,10 @@
     "featureType": "administrative.country",
     "stylers": [
       {
-        "color": "#ff5dce"
+        "color": "#a5de9a"
       },
       {
-        "weight": 2.5
+        "weight": 2
       }
     ]
   },
@@ -15,7 +15,7 @@
     "elementType": "geometry.fill",
     "stylers": [
       {
-        "color": "#ff54eb"
+        "color": "#ecfb95"
       }
     ]
   },
@@ -165,7 +165,7 @@
     "elementType": "geometry.fill",
     "stylers": [
       {
-        "color": "#12aeff"
+        "color": "#0088e6"
       }
     ]
   }
