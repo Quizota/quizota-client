@@ -20,9 +20,7 @@ class Socket {
 
   setHandler(_handler) {
     handler = _handler
-
     socket.on('data', function(responseData){
-      console.log('Response data:', responseData)
       if(handler) {
         handler(responseData)
       }

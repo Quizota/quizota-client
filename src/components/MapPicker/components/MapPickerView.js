@@ -6,8 +6,11 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './MapPickerView.scss'
 
 import markerCorrect from '../img/mkRight.svg'
-import markerCurrent from '../img/mkPicked.svg'
+import pickedMarker from '../img/mkPicked.svg'
 import markerVs from '../img/mkVs.svg'
+import CountDown from '../../CountDown'
+import { createStore } from 'redux';
+
 import {
   withGoogleMap,
   GoogleMap,
@@ -24,7 +27,6 @@ function getDistanceFromLatLonInKm(locationFrom, locationTo) {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(locationTo.lat - locationFrom.lat);  // deg2rad below
   var dLon = deg2rad(locationTo.lng - locationFrom.lng);
-  console.log(locationFrom, locationTo)
   var a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(deg2rad(locationFrom.lat)) * Math.cos(deg2rad(locationTo.lat)) *
@@ -53,45 +55,50 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
       styles: fancyMapStyles
     }}
     onClick={props.onMapClick}>
-
     {props.markers.map(marker => {
-        let hanoiLatLng = {lat: 21.0227358, lng: 105.8194541}
-        let currentCursor = {lat: props.circleDistance.lat, lng: props.circleDistance.lng}
-        let distance = getDistanceFromLatLonInKm(hanoiLatLng, currentCursor)
-        let correctMarkerPosition = props.correctMarker
-        var myLatLng = {lat: 16.4535572, lng: 107.5419039}
-        console.log(distance)
-        socket.emitData()
-        return (
-          <div>
-            <Circle
-              options={{
-                strokeColor: '#ff5454',
-                strokeOpacity: 1,
-                strokeWeight: 1,
-                fillColor: '#ff5454',
-                fillOpacity: 0.1,
-                clickable: false,
-                center: hanoiLatLng,
-                radius: distance * 1000,
-                key: Date.now()
-              }}
-            />
-            <Marker
-              icon={{
-                url: markerCurrent
-              }}
-              {...marker}
-            />
-            <Marker
-              icon={{
-                url: markerCorrect
-              }}
-              key={Date.now()}
-              position={hanoiLatLng} 
-            />
-          </div>
-        )
+      console.log("Can render lai:", props.needReRender)
+        if (props.needReRender) {
+          console.log("props.circleDistance:", props.correctMarker)
+          let _correctPositionLatLng = {lat: props.correctMarker.lat, lng: props.correctMarker.lng}
+          let currentCursor = {lat: props.circleDistance.lat, lng: props.circleDistance.lng}
+          let distance = getDistanceFromLatLonInKm(_correctPositionLatLng, currentCursor)
+          return (
+            <div>
+              <Circle
+                options={{
+                  strokeColor: '#ff5454',
+                  strokeOpacity: 1,
+                  strokeWeight: 1,
+                  fillColor: '#ff5454',
+                  fillOpacity: 0.1,
+                  clickable: false,
+                  center: _correctPositionLatLng,
+                  radius: distance * 1000,
+
+                }}
+              />
+              <Marker
+                icon={{
+                  url: pickedMarker
+                }}
+                {...marker}
+              />
+              <Marker
+                icon={{
+                  url: markerCorrect
+                }}
+                position={_correctPositionLatLng}
+                lat={_correctPositionLatLng.lat}
+                lng={_correctPositionLatLng.lng}
+                key={Date.now()}
+              />
+            </div>
+          )
+        } else {
+          return (
+            <div></div>
+          )
+        }
       }
     )}
   </GoogleMap>
@@ -99,16 +106,79 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
 
 class MapPickerView extends React.Component {
   state = {
+    isSended: true,
     markers: [],
     circleDistance: [],
-    correctMarker: []
+    correctMarker: [],
+    timeLeft: 20,
+    startIn: 5,
+    gameStatus: 'Bắt đầu',
+    needReRender: false,
+    timeOut: 10
   };
 
 
   handleMapLoad = this.handleMapLoad.bind(this);
   handleMapClick = this.handleMapClick.bind(this);
-  handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
 
+  componentDidMount() {
+    function counter(state = 0, action) {
+      switch (action.type) {
+        case 'INCREMENT': return state + 1;
+        case 'DECREMENT': return state - 1;
+        default: return state;
+      }
+    }
+    let store = createStore(counter, 42)
+    console.log('Store here:', store.getState()); // 42
+    let selfApp = this
+    socket.setHandler(function (resData) {
+      if (resData.code == "syncGameData" || resData.code == "startGame") {
+        if (resData.data.cmd == "newQuestion") {
+        selfApp.setState({
+          circleDistance: null,
+          isSended: false,
+          correctMarker: [],
+          gameStatus: 'Có câu hỏi mới, Xóa dữ liệu cũ',
+          needReRender: false,
+          timeOut: 10
+        })
+        if (resData.code == "startGame") {
+          let questionTimeOut= resData.data.gameData.questionTimeout
+          selfApp.setState({
+            gameStatus: 'Bắt đầu game',
+            timeOut: questionTimeOut
+          })
+        }
+        let newLocationData = resData.data.data.newQuestion
+
+        let _correctMarker = {
+          lat: newLocationData.latitude,
+          lng: newLocationData.longitude,
+          name: newLocationData.name,
+          defaultAnimation: 4,
+          key: Date.now() + 1
+        }
+        console.log("Dữ liệu mới:", _correctMarker)
+        console.log(_correctMarker)
+        selfApp.setState({
+          correctMarker: _correctMarker,
+        })
+      }
+      }
+      if (resData.code == "waitingStartGame") {
+        let delay = resData.data.waitingTime
+        selfApp.setState({
+          startIn: delay,
+          gameStatus: 'Chờ bắt đầu game'
+        })
+      }
+    })
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
 
   handleMapLoad(map) {
     this._mapComponent = map;
@@ -122,55 +192,67 @@ class MapPickerView extends React.Component {
    * Go and try click now.
    */
   handleMapClick(event) {
-    const nextMarkers = [
-      {
+    console.log('Clicked')
+    if (!this.state.isSended) {
+      const _pickedMarker = [{
         position: event.latLng,
         defaultAnimation: 4,
-        key: Date.now(), // Add a key property for: http://fb.me/react-warning-keys
+        key: Date.now() + 3, // Add a key property for: http://fb.me/react-warning-keys
+      }]
+
+      const _circleDistance = {
+        position: event.latLng,
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+        defaultAnimation: 4,
+        key: Date.now() + 2
       }
-    ]
-    const nextCorrectMarker = {
-      lat: 16.4535572,
-      lng: 107.5419039,
-      defaultAnimation: 4,
-      key: Date.now(),
-    }
-    const nextCircleDistance = {
-      position: event.latLng,
-      lat: event.latLng.lat(),
-      lng: event.latLng.lng(),
-      defaultAnimation: 4,
-      key: Date.now()
-    }
-    this.setState({
-      markers: nextMarkers,
-      circleDistance: nextCircleDistance,
-      correctMarker: nextCorrectMarker
-    })
 
-    if (nextMarkers.length === 3) {
-      this.props.toast(
-        `Right click on the marker to remove it`,
-        `Also check the code!`
-      );
+      let _pickerLatLng = {lat: event.latLng.lat(), lng: event.latLng.lng()}
+      let _currentPos = {lat: this.state.correctMarker.lat, lng: this.state.correctMarker.lng}
+      let _distance = getDistanceFromLatLonInKm(_pickerLatLng, _currentPos)
+      this.setState({
+        markers: _pickedMarker,
+        circleDistance: _circleDistance,
+        isSended: true,
+        distance: _distance,
+        gameStatus: 'Gửi đáp án',
+        needReRender: true
+      })
+      socket.emitData('data', {
+        "cmd": "syncGameData",
+        "data": {"cmd": "gameAction", "data": {"lat": event.latLng.lat(), "lng": event.latLng.lng()}}
+      })
     }
+
   }
 
-  handleMarkerRightClick(targetMarker) {
-    /*
-     * All you modify is data, and the view is driven by data.
-     * This is so called data-driven-development. (And yes, it's now in
-     * web front end and even with google maps API.)
-     */
-    const nextMarkers = this.state.markers.filter(marker => marker !== targetMarker);
-    this.setState({
-      markers: nextMarkers,
-    });
-  }
 
   render() {
     return (
       <div style={{height: `100%`}}>
+        <div id="question" className="long-name active">
+          <div className="question">
+            <span className="question-head">Bạn có biết...</span>
+            <span className="question-body">{this.state.correctMarker.name}</span>
+            <span className="question-foot">
+              <span className="question-tail" style={{display: `inline`}}>ở đâu?</span>
+              <span className="distance-text" style={{display: `none`}}>Bạn còn cách
+                <span className="distance">100</span><span className="km">km</span>
+              </span>
+              <span className="perfect-answer" style={{display: `none`}}>Chuẩn luôn!!</span> <span
+              className="times-up" style={{display: `none`}}>Hết giờ :(</span> </span></div>
+        </div>
+        <div className="gameStatus">
+          <p>game Status is: {this.state.gameStatus}</p>
+          <p>Địa điểm cần chọn hiện tại: {this.state.correctMarker.name}</p>
+          <p>Khoảng cách: {this.state.distance}</p>
+          <p>Da gui: {this.state.isSend}</p>
+        </div>
+        <div id="clock" style={{display: `block`}} className=""><span>
+          <CountDown timeOut={this.state.timeOut}></CountDown>
+        </span>s
+        </div>
         <GettingStartedGoogleMap
           containerElement={
             <div style={{height: `100%`}}/>
@@ -181,8 +263,10 @@ class MapPickerView extends React.Component {
           onMapLoad={this.handleMapLoad}
           onMapClick={this.handleMapClick}
           markers={this.state.markers}
+          correctMarker={this.state.correctMarker}
           circleDistance={this.state.circleDistance}
-          onMarkerRightClick={this.handleMarkerRightClick}
+          isSend={this.state.isSend}
+          needReRender={this.state.needReRender}
         />
       </div>
     )

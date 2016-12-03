@@ -6,3 +6,175 @@
   opacity: 1;
   transition: opacity .5s ease-in;
 }
+#question {
+  opacity: 0;
+  position: absolute;
+  z-index: 10;
+  top: 25%;
+  right: 120px;
+  -webkit-transform: translate3d(0,800px,0);
+  transform: translate3d(0,800px,0);
+  -webkit-transition: -webkit-transform .4s,opacity .4s;
+  transition: transform .4s,opacity .4s
+}
+
+#question.active {
+  opacity: 1;
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0)
+}
+
+#question .question-head {
+  position: absolute;
+  top: -10px;
+  left: -8px;
+  z-index: 3;
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -1px;
+  -webkit-transform: rotate(-4deg);
+  -ms-transform: rotate(-4deg);
+  transform: rotate(-4deg);
+  text-shadow: 1px 1px #fff,1px -1px #fff,-1px -1px #fff,-1px 1px #fff
+}
+
+#question .question-body {
+  display: block;
+  position: relative;
+  z-index: 1;
+  min-width: 120px;
+  padding: 11px 20px 10px;
+  border-radius: 8px;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #da1629;
+  white-space: nowrap;
+  background: #fff;
+  -webkit-transition: min-width .15s,padding .15s,font-size .2s,-webkit-transform .15s;
+  transition: min-width .15s,padding .15s,font-size .2s,transform .15s
+}
+
+#question.long-name .question-body {
+  font-size: 32px
+}
+
+#question .question-foot {
+  position: absolute;
+  z-index: 2;
+  top: 33px;
+  right: 0;
+  padding: 6px 12px 5px;
+  border-radius: 7px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  line-height: .9;
+  white-space: nowrap;
+  -webkit-transform: rotate(-10deg) translate3d(15px,26px,0);
+  transform: rotate(-10deg) translate3d(15px,26px,0);
+  background: #da1629;
+  -webkit-transition: padding .15s,-webkit-transform .15s;
+  transition: padding .15s,transform .15s
+}
+
+#question.showing-distance .question-head {
+  display: none
+}
+
+#question.showing-distance .question-body {
+  top: 0;
+  right: 0;
+  min-width: 100px;
+  padding: 5px 15px;
+  line-height: 28px;
+  font-size: 26px;
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg)
+}
+
+#question.showing-distance .question-foot {
+  width: auto;
+  padding: 0 12px 9px;
+  font-size: 20px;
+  color: rgba(255,255,255,.8);
+  -webkit-transform: rotate(3deg) translate3d(0,2px,0);
+  transform: rotate(3deg) translate3d(0,2px,0)
+}
+
+#question.showing-distance .question-foot .distance {
+  position: relative;
+  top: 5px;
+  padding: 0 3px 0 0;
+  margin: 0 0 0 -2px;
+  font-size: 48px;
+  line-height: 14px;
+  letter-spacing: -1px;
+  color: #fff;
+  text-shadow: 1px 1px #ac0717,1px -1px #ac0717,-1px -1px #ac0717,-1px 1px #ac0717
+}
+
+#question.showing-distance.showing-perfect .question-foot {
+  font-size: 22px;
+  -webkit-transform: rotate(3deg) translate3d(5px,2px,0);
+  transform: rotate(3deg) translate3d(5px,2px,0);
+  padding: 7px 12px 8px;
+  color: #fff;
+  text-transform: lowercase
+}
+
+#question.showing-distance.showing-timesup .question-foot {
+  font-size: 22px;
+  -webkit-transform: rotate(3deg) translate3d(5px,2px,0);
+  transform: rotate(3deg) translate3d(5px,2px,0);
+  padding: 8px 12px;
+  color: #fff;
+  text-transform: lowercase
+}
+
+#question.showing-distance .question-foot .km {
+  color: #fff
+}
+#clock {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  top: 23%;
+  right: 100px;
+  width: 40px;
+  height: 40px;
+  padding: 12px 6px 0 0;
+  line-height: 16px;
+  border-radius: 50%;
+  text-align: right;
+  color: rgba(255,255,255,.7);
+  font-size: 16px;
+  letter-spacing: -1px;
+  background: #da1629;
+  -webkit-transform: scale(1,1) rotate(8deg);
+  -ms-transform: scale(1,1) rotate(8deg);
+  transform: scale(1,1) rotate(8deg);
+  -webkit-animation: expanding .15s .2s 1 backwards;
+  animation: expanding .15s .2s 1 backwards;
+}
+#clock span {
+  padding: 0 1px 0 0;
+  font-weight: 700;
+  font-family: Arial;
+  font-size: 19px;
+  letter-spacing: -1px;
+  color: #fff;
+}
+.gameStatus {
+  text-align: left;
+  background-color: rgba(255,255,255,0.2);
+  position: absolute;
+  bottom: 100px;
+  z-index:6;
+  right: 100px;
+}

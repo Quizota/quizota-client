@@ -30,8 +30,6 @@ class DashboardView extends React.Component {
         console.log("other user data:", resData)
       }
     })
-
-
   }
 
   playNow() {
@@ -51,6 +49,7 @@ class DashboardView extends React.Component {
       itemClass.add('show')
     }
   }
+
   componentWillUnmount() {
     let elementWillShow = ['ranking-mode', 'beginner-mode']
     for (var item in elementWillShow) {

@@ -43,8 +43,11 @@ class GameView extends React.Component {
           secondsElapsed: prevState.secondsElapsed - 1
         })
       } else {
-        console.log('Thông báo: Hoàn thành')
-        return null
+        return ({
+          countDownStyle: { display: `none`}
+        })
+        clearInterval(this.interval)
+
       }
     });
   }
@@ -69,7 +72,7 @@ class GameView extends React.Component {
           </div>
           <div className="dashboard__main">
             <div className="home__findingMatch home__activity">
-              <div id="quizota-countdown">
+              <div id="quizota-countdown" style={ this.state.countDownStyle }>
                 <span>{this.state.secondsElapsed}</span>
               </div>
               <div className="score-overlay"></div>
