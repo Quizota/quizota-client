@@ -1,8 +1,92 @@
-import React from 'react'
+import React, {Component} from 'react'
+import socket from '../../SocketIO'
 import './Sidebar.scss'
 
-export const Sidebar = () => (
-  <div className="dashboard__sidebar">
+class Sidebar extends Component {
+  constructor(props, context){
+    super(props, context)
+    this.componentDidMount = this.componentDidMount.bind(this)
+    this.setGameMatch = this.setGameMatch.bind(this)
+    this.state = {user: null,
+                  total: null,
+                  winRate: null,
+                  loseRate: null}
+
+
+  }
+
+  componentDidMount(){
+    let self = this
+    socket.setHandler(function (resData) {
+      if (resData.code == "getMyInfo") {
+        self.setState({user: resData.data})
+        self.setGameMatch()
+      } 
+    })
+
+    socket.emitData('data', { "cmd": "getMyInfo", "data": {} })
+  }
+
+  setGameMatch(){
+    var total = 0,
+        totalWin = 0,
+        totalLose = 0,
+        winRate = 0,
+        loseRate = 0
+
+    this.state.user.profile.gameUnlocked.map((game) => {
+      totalWin += game.win
+      totalLose += game.lose
+    })
+
+    total = totalWin + totalLose
+    if(total === 0){
+      winRate = 50
+      loseRate = 50
+    } else if (totalWin === 0){
+      winRate === 0
+      loseRate === 100
+    } else if(totalLose === 0){
+      winRate === 100
+      loseRate === 0
+    } else {
+      winRate = (totalWin/totalLose*100).toFixed(0)
+      loseRate = 100 - winRate
+    }
+
+    this.setState({total: total})
+    this.setState({winRate: winRate})
+    this.setState({loseRate: loseRate})
+  }
+
+  renderGame(game, index){
+    if(game.active){
+    return(
+          <div key={"game_" + index}className="userArchives__item">
+            <div className="archiveFullLink myArchives__archive">
+              <div className="archiveIconLink">
+                <a href="#">
+                  <span>
+                    <img src="/img/archive/archive_icon.jpg" alt=""></img>
+                  </span>
+                </a>
+                <span className="archiveIconLabel">
+                  {game.name}
+                </span>
+              </div>
+            </div>
+          </div>
+          )
+    }          
+ }
+  
+  render(){
+    if(!this.state.user){
+      return (<h1>Loading...</h1>)
+    }
+
+    return(
+      <div className="dashboard__sidebar">
     <div className="userProfile ">
       <div className="userProfile__info ProfileHeader">
         <div className="ProfileHeader__image__container">
@@ -12,8 +96,8 @@ export const Sidebar = () => (
           </div>
         </div>
         <div className="ProfileHeader__nameBox">
-          <span className="ProfileHeader__name">Phạm Ngọc Hội</span>
-          <span className="ProfileHeader__age">25</span>
+          <span className="ProfileHeader__name">{this.state.user.profile.displayName}</span>
+          <span className="ProfileHeader__age">{this.state.user.profile.age}</span>
         </div>
         <div className="ProfileHeader__title">
           Vừa gia nhập
@@ -40,15 +124,15 @@ export const Sidebar = () => (
       <section className="ProfileCounts u-clearfix u-antialiased">
         <div className="ProfileCounts__item">
           <div className="ProfileCounts__item__string">Games</div>
-          <div className="ProfileCounts__item__value ProfileCounts__item__value--games">50</div>
+          <div className="ProfileCounts__item__value ProfileCounts__item__value--games">{this.state.total}</div>
         </div>
         <div className="ProfileCounts__item">
           <div className="ProfileCounts__item__string">Elo</div>
-          <div className="ProfileCounts__item__value ProfileCounts__item__value--elo">1900</div>
+          <div className="ProfileCounts__item__value ProfileCounts__item__value--elo">{this.state.user.profile.elo}</div>
         </div>
         <div className="ProfileCounts__item">
           <div className="ProfileCounts__item__string">Win rate</div>
-          <div className="ProfileCounts__item__value ProfileCounts__item__value--winrate">82%</div>
+          <div className="ProfileCounts__item__value ProfileCounts__item__value--winrate">{this.state.winRate}%</div>
         </div>
       </section>
       <hr className="ProfileSidebar__divider"></hr>
@@ -56,30 +140,30 @@ export const Sidebar = () => (
         <h1 className="ProfileSidebar__header">Thông số</h1>
         <div className="ProfileSidebar__statistics__bar">
           <div className="GameStats u-clearfix">
-            <div className="GameStats__part GameStats__part--won" style={{width: '82%'}}>
+            <div className="GameStats__part GameStats__part--won" style={{width: this.state.winRate+'%'}}>
               <div className="GameStats__label">
                 Thắng
               </div>
               <div className="GameStats__percentage GameStats__percentage--won u-antialiased">
-                <span>82</span>
+                <span>{this.state.winRate}</span>
                 <spa>%</spa>
               </div>
             </div>
-            <div className="GameStats__part GameStats__part--drawn" style={{width: '3%'}}>
+            <div className="GameStats__part GameStats__part--drawn" style={{width: '0%'}}>
               <div className="GameStats__label GameStats__label--right">
                 Hòa
               </div>
               <div className="GameStats__percentage GameStats__percentage--drawn u-antialiased">
-                <span>3</span>
+                <span>0</span>
                 <spa>%</spa>
               </div>
             </div>
-            <div className="GameStats__part GameStats__part--lost" style={{width: '15%'}}>
+            <div className="GameStats__part GameStats__part--lost" style={{width: this.state.loseRate+'%'}}>
               <div className="GameStats__label">
                 Thua
               </div>
               <div className="GameStats__percentage GameStats__percentage--lost u-antialiased">
-                <span>15</span>
+                <span>{this.state.loseRate}</span>
                 <spa>%</spa>
               </div>
             </div>
@@ -142,24 +226,15 @@ export const Sidebar = () => (
           <h3>Trò chơi</h3>
         </div>
         <div className="userArchives__items">
-          <div className="userArchives__item">
-            <div className="archiveFullLink myArchives__archive">
-              <div className="archiveIconLink">
-                <a href="#">
-<span>
-<img src="/img/archive/archive_icon.jpg" alt=""></img>
-</span>
-                </a>
-                <span className="archiveIconLabel">
-Trò chơi 1
-</span>
-              </div>
-            </div>
-          </div>
+          {this.state.user.gameList.map((game,index) => this.renderGame(game, index))}
         </div>
       </div>
 
     </div>
   </div>
-)
+    )
+  }
+}
+  
+
 export default Sidebar

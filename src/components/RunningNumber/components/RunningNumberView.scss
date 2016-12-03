@@ -1,0 +1,101 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif; }
+
+.div__numberCircle {
+  border: 2px solid black;
+  display: block;
+  padding: 10px;
+  text-align: center; }
+
+.div__numselectedberCircle--selected {
+  display: block;
+  padding: 10px;
+  text-align: center; }
+
+.listNumber > li {
+  width: 9%;
+  float: left;
+  height: 75px;
+  background: #fff;
+  display: box;
+  box-pack: center;
+  box-align: center;
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  display: -moz-box;
+  -moz-box-pack: center;
+  -moz-box-align: center;
+  display: -ms-flexbox;
+  -ms-flex-pack: center;
+  -ms-flex-align: center;
+  border: 3px solid #ff5454;
+  margin: 2px; }
+
+.listNumber > .selected {
+  border: 3px solid green;
+}
+
+.listNumber > li > span {
+  font-size: 30px;
+  color: #ff5454;
+  font-weight: bold;
+  display: block; 
+}
+
+.listNumber > .selected > span {
+  color: green;
+}
+
+.listNumber > li > span {
+  font-size: 30px;
+  color: #ff5454;
+  font-weight: bold;
+  display: block; 
+}
+
+.div__playerHub {
+  position: absolute;
+  bottom: 0;
+  left: 8px;
+  right: 8px;
+  height: 125px;
+  background: #263248;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  padding-top: 30px;
+}
+
+.div__userAvatar{
+  height: 70px;
+  width: 70px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+}
+
+.div__currentInfo{
+  float: left;
+  padding-left: 25px;
+}
+
+.p__userName{
+  font-size: 25px;
+  color: #fff;
+  margin-bottom: 0px !important;
+}
+
+.p__userScore{
+  font-size: 35px;
+  font-style: italic;
+}
+
+.div__vs{
+  margin-top: -15px;
+}
+
+.gameFrame{
+  padding: 35px;
+  padding-top: 135px;
+}

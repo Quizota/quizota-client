@@ -1,7 +1,7 @@
 import React from 'react'
 import {IndexLink, Link} from 'react-router'
 import './GameView.scss'
-import MapPickerView from '../../../components/MapPicker/components/MapPickerView'
+import RunningNumber from '../../../components/RunningNumber/components/RunningNumberView'
 import socket from '../../../SocketIO'
 
 const nameAlphaCSS = {
@@ -25,36 +25,43 @@ class GameView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {secondsElapsed: 5};
+    this.tick = this.tick.bind(this)
+    this.componentDidMount = this.componentDidMount.bind(this)
     let self = this
     socket.setHandler(function (resData) {
       if (resData.code == "waitingStartGame") {
         console.log("waiting for game")
-        self.state = {secondsElapsed: resData.data.waitingTime/1000};
-      } else if (resData.code == "startGame") {
-        console.log("Cau hoi moi:", resData.data.data.newQuestion)
+        self.setState = {secondsElapsed: resData.data.waitingTime/1000};
+      } else if(resData.code === "startGame" && resData.data.game.type === "number_rush"){
+          self.ref.RunningNumber.handleStartGame(resData)
+      } else if(resData.code === "processActionSuccess"){
+          self.ref.RunningNumber.handleProcessActionSuccess(resData)
+      } else if(resData.code === "endGame"){
+          self.ref.RunningNumber.handleEndGame(resData, "Hoi")
+        
       }
     })
   }
 
   tick() {
+    console.log(this)
     this.setState((prevState) => {
-      if (prevState.secondsElapsed >= 1) {
+      if (prevState.secondsElapsed >= 2) {
         return ({
           secondsElapsed: prevState.secondsElapsed - 1
         })
       } else {
         console.log('Thông báo: Hoàn thành')
-        return null
+        clearInterval(this.interval);
+        return ({
+          secondsElapsed: null
+        })
       }
     });
   }
 
   componentDidMount() {
     this.interval = setInterval(() => this.tick(), 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
   }
 
   render() {
@@ -102,7 +109,7 @@ class GameView extends React.Component {
                 <div className="name-vs">Phuong</div>
               </div>
               <div className="gameInner" style={{height: `100%`}}>
-                <MapPickerView></MapPickerView>
+                <RunningNumber ref="RunningNumber" socket={socket}/>
               </div>
             </div>
           </div>
