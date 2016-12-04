@@ -4,13 +4,11 @@ import DocumentTitle from 'react-document-title'
 import {connect} from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './MapPickerView.scss'
-
 import markerCorrect from '../img/mkRight.svg'
 import pickedMarker from '../img/mkPicked.svg'
 import markerVs from '../img/mkVs.svg'
 import CountDown from '../../CountDown'
 import {store} from '../../../main'
-
 import {
   withGoogleMap,
   GoogleMap,
@@ -56,49 +54,42 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
     }}
     onClick={props.onMapClick}>
     {props.markers.map(marker => {
-      console.log("Can render lai:", props.needReRender)
-        if (props.needReRender) {
-          console.log("props.circleDistance:", props.correctMarker)
-          let _correctPositionLatLng = {lat: props.correctMarker.lat, lng: props.correctMarker.lng}
-          let currentCursor = {lat: props.circleDistance.lat, lng: props.circleDistance.lng}
-          let distance = getDistanceFromLatLonInKm(_correctPositionLatLng, currentCursor)
-          return (
-            <div>
-              <Circle
-                options={{
-                  strokeColor: '#ff5454',
-                  strokeOpacity: 1,
-                  strokeWeight: 1,
-                  fillColor: '#ff5454',
-                  fillOpacity: 0.1,
-                  clickable: false,
-                  center: _correctPositionLatLng,
-                  radius: distance * 1000,
-
-                }}
-              />
-              <Marker
-                icon={{
-                  url: pickedMarker
-                }}
-                {...marker}
-              />
-              <Marker
-                icon={{
-                  url: markerCorrect
-                }}
-                position={_correctPositionLatLng}
-                lat={_correctPositionLatLng.lat}
-                lng={_correctPositionLatLng.lng}
-                key={Date.now()}
-              />
-            </div>
-          )
-        } else {
-          return (
-            <div></div>
-          )
-        }
+      console.log("Trong func marker map:", props.correctMarker)
+        let _correctPositionLatLng = {lat: props.correctMarker.lat, lng: props.correctMarker.lng}
+        let currentCursor = {lat: props.circleDistance.lat, lng: props.circleDistance.lng}
+        let distance = getDistanceFromLatLonInKm(_correctPositionLatLng, currentCursor)
+        return (
+          <div>
+            <Circle
+              options={{
+                strokeColor: '#ff5454',
+                strokeOpacity: 1,
+                strokeWeight: 1,
+                fillColor: '#ff5454',
+                fillOpacity: 0.1,
+                clickable: false,
+                center: _correctPositionLatLng,
+                radius: distance * 1000,
+              }}
+              key={Math.random().toString(36).substring(7)}
+            />
+            <Marker
+              icon={{
+                url: pickedMarker
+              }}
+              {...marker}
+            />
+            <Marker
+              icon={{
+                url: markerCorrect
+              }}
+              position={_correctPositionLatLng}
+              lat={_correctPositionLatLng.lat}
+              lng={_correctPositionLatLng.lng}
+              key={Math.random().toString(36).substring(7)}
+            />
+          </div>
+        )
       }
     )}
   </GoogleMap>
@@ -108,66 +99,57 @@ class MapPickerView extends React.Component {
   state = {
     isSended: true,
     markers: [],
-    circleDistance: [],
-    correctMarker: [],
-    timeLeft: 20,
+    circleDistance: {},
+    correctMarker: {},
     startIn: 5,
     gameStatus: 'Bắt đầu',
     needReRender: false,
     timeOut: 10,
     awnCSS: {display: `none`},
     notAwnCSS: {display: `inline`},
-    questionStatus: 'long-name active',
-    reCount: true
+    questionStatus: 'long-name active'
   }
   mapStore = store.getState().mapPicker
   handleMapLoad = this.handleMapLoad.bind(this);
   handleMapClick = this.handleMapClick.bind(this);
-
-  componentDidMount() {
-    console.log('Map store:', this.mapStore)
+  constructor(props) {
+    super().props
     let selfApp = this
     socket.setHandler(function (resData) {
       if (resData.code == "syncGameData" || resData.code == "startGame") {
-        if (resData.data.cmd == "newQuestion") {
+        console.log("Co cau hoi moi:", resData.data.data.newQuestion)
+        if (resData.data.cmd == "newQuestion" ) {
           selfApp.setState({
-            timeOut: 0,
+            circleDistance: {},
+            isSended: false,
+            correctMarker: {},
+            gameStatus: 'Có câu hỏi mới, Xóa dữ liệu cũ',
+            timeOut: 10,
+            awnCSS: {display: `none`},
+            notAwnCSS: {display: `inline`}
           })
-        selfApp.setState({
-          circleDistance: null,
-          isSended: false,
-          correctMarker: [],
-          gameStatus: 'Có câu hỏi mới, Xóa dữ liệu cũ',
-          needReRender: false,
-          timeOut: 10,
-          awnCSS: {display: `none`},
-          notAwnCSS: {display: `inline`},
-          recount: false
-        })
-        if (resData.code == "startGame") {
-          let questionTimeOut= resData.data.gameData.questionTimeout
-          selfApp.setState({
-            gameStatus: 'Bắt đầu game',
-            timeOut: questionTimeOut
-          })
-        }
-        let newLocationData = resData.data.data.newQuestion
 
-        let _correctMarker = {
-          lat: newLocationData.latitude,
-          lng: newLocationData.longitude,
-          name: newLocationData.name,
-          defaultAnimation: 4,
-          key: Date.now() + 1
+          let newLocationData = resData.data.data.newQuestion
+          console.log('newLocationData:', newLocationData)
+          let _correctMarker = {
+            lat: newLocationData.latitude,
+            lng: newLocationData.longitude,
+            name: newLocationData.name,
+            defaultAnimation: 4,
+            key: Date.now()
+          }
+          if (resData.code == "startGame") {
+            selfApp.setState({
+              gameStatus: 'Bắt đầu game'
+            })
+          }
+          selfApp.setState({
+            correctMarker: _correctMarker,
+          })
+          console.log("State change:", selfApp.state.correctMarker)
         }
-        console.log("Dữ liệu mới:", _correctMarker)
-        console.log(_correctMarker)
-        selfApp.setState({
-          correctMarker: _correctMarker,
-        })
       }
-      }
-      if (resData.code == "waitingStartGame") {
+      else if (resData.code == "waitingStartGame") {
         let delay = resData.data.waitingTime
         selfApp.setState({
           startIn: delay,
@@ -175,10 +157,6 @@ class MapPickerView extends React.Component {
         })
       }
     })
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
   }
 
   handleMapLoad(map) {
@@ -193,12 +171,11 @@ class MapPickerView extends React.Component {
    * Go and try click now.
    */
   handleMapClick(event) {
-    console.log('Clicked')
     if (!this.state.isSended) {
       const _pickedMarker = [{
         position: event.latLng,
         defaultAnimation: 4,
-        key: Date.now() + 3, // Add a key property for: http://fb.me/react-warning-keys
+        key: Date.now(), // Add a key property for: http://fb.me/react-warning-keys
       }]
 
       const _circleDistance = {
@@ -206,7 +183,7 @@ class MapPickerView extends React.Component {
         lat: event.latLng.lat(),
         lng: event.latLng.lng(),
         defaultAnimation: 4,
-        key: Date.now() + 2
+        key: Date.now()
       }
 
       let _pickerLatLng = {lat: event.latLng.lat(), lng: event.latLng.lng()}
@@ -218,11 +195,9 @@ class MapPickerView extends React.Component {
         isSended: true,
         distance: _distance,
         gameStatus: 'Gửi đáp án',
-        needReRender: true,
         awnCSS: {display: `inline`},
         notAwnCSS: {display: `none`},
-        questionStatus: 'active showing-distance',
-        recount: true
+        questionStatus: 'active showing-distance'
       })
       socket.emitData('data', {
         "cmd": "syncGameData",
@@ -234,6 +209,7 @@ class MapPickerView extends React.Component {
 
 
   render() {
+    console.log(this.state)
     return (
       <div style={{height: `100%`}}>
         <div id="question" className={this.state.questionStatus}>
@@ -255,7 +231,7 @@ class MapPickerView extends React.Component {
           <p>Da gui: {this.state.isSend}</p>
         </div>
         <div id="clock" style={{display: `block`}} className=""><span>
-          <CountDown initialTimeRemaining={20} interval={20000}></CountDown>
+          10
         </span>s
         </div>
         <GettingStartedGoogleMap
@@ -270,8 +246,7 @@ class MapPickerView extends React.Component {
           markers={this.state.markers}
           correctMarker={this.state.correctMarker}
           circleDistance={this.state.circleDistance}
-          isSend={this.state.isSend}
-          needReRender={this.state.needReRender}
+          isSend={this.state.isSended}
         />
       </div>
     )
