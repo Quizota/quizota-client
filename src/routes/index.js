@@ -37,8 +37,7 @@ export const connectToSocket = (store) => (
   socket.connectSocket('connect@token')
 )
 function checkAuth(nextState, replace) {
-  let {loggedIn} = store.getState().authFormReducer
-  console.log('state status', store.getState().authFormReducer)
+  let {loggedIn} = store.getState().auth
   store.dispatch(clearError())
   // Check if the path isn't dashboard. That way we can apply specific logic to
   // display/render the path we want to

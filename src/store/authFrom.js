@@ -32,7 +32,6 @@ let initialState = {
     newUser: true,
     loggedIn: auth.loggedIn()
 }
-console.log('bat dau:', initialState)
 
 export default function formReducer (state = initialState, action) {
     switch (action.type) {

@@ -9,7 +9,7 @@ import markerCorrect from '../img/mkRight.svg'
 import pickedMarker from '../img/mkPicked.svg'
 import markerVs from '../img/mkVs.svg'
 import CountDown from '../../CountDown'
-import { createStore } from 'redux';
+import {store} from '../../../main'
 
 import {
   withGoogleMap,
@@ -114,34 +114,35 @@ class MapPickerView extends React.Component {
     startIn: 5,
     gameStatus: 'Bắt đầu',
     needReRender: false,
-    timeOut: 10
-  };
-
-
+    timeOut: 10,
+    awnCSS: {display: `none`},
+    notAwnCSS: {display: `inline`},
+    questionStatus: 'long-name active',
+    reCount: true
+  }
+  mapStore = store.getState().mapPicker
   handleMapLoad = this.handleMapLoad.bind(this);
   handleMapClick = this.handleMapClick.bind(this);
 
   componentDidMount() {
-    function counter(state = 0, action) {
-      switch (action.type) {
-        case 'INCREMENT': return state + 1;
-        case 'DECREMENT': return state - 1;
-        default: return state;
-      }
-    }
-    let store = createStore(counter, 42)
-    console.log('Store here:', store.getState()); // 42
+    console.log('Map store:', this.mapStore)
     let selfApp = this
     socket.setHandler(function (resData) {
       if (resData.code == "syncGameData" || resData.code == "startGame") {
         if (resData.data.cmd == "newQuestion") {
+          selfApp.setState({
+            timeOut: 0,
+          })
         selfApp.setState({
           circleDistance: null,
           isSended: false,
           correctMarker: [],
           gameStatus: 'Có câu hỏi mới, Xóa dữ liệu cũ',
           needReRender: false,
-          timeOut: 10
+          timeOut: 10,
+          awnCSS: {display: `none`},
+          notAwnCSS: {display: `inline`},
+          recount: false
         })
         if (resData.code == "startGame") {
           let questionTimeOut= resData.data.gameData.questionTimeout
@@ -210,14 +211,18 @@ class MapPickerView extends React.Component {
 
       let _pickerLatLng = {lat: event.latLng.lat(), lng: event.latLng.lng()}
       let _currentPos = {lat: this.state.correctMarker.lat, lng: this.state.correctMarker.lng}
-      let _distance = getDistanceFromLatLonInKm(_pickerLatLng, _currentPos)
+      let _distance = getDistanceFromLatLonInKm(_pickerLatLng, _currentPos).toFixed(0)
       this.setState({
         markers: _pickedMarker,
         circleDistance: _circleDistance,
         isSended: true,
         distance: _distance,
         gameStatus: 'Gửi đáp án',
-        needReRender: true
+        needReRender: true,
+        awnCSS: {display: `inline`},
+        notAwnCSS: {display: `none`},
+        questionStatus: 'active showing-distance',
+        recount: true
       })
       socket.emitData('data', {
         "cmd": "syncGameData",
@@ -231,14 +236,14 @@ class MapPickerView extends React.Component {
   render() {
     return (
       <div style={{height: `100%`}}>
-        <div id="question" className="long-name active">
+        <div id="question" className={this.state.questionStatus}>
           <div className="question">
-            <span className="question-head">Bạn có biết...</span>
+            <span className="question-head" style={this.state.notAwnCSS}>Bạn có biết...</span>
             <span className="question-body">{this.state.correctMarker.name}</span>
             <span className="question-foot">
-              <span className="question-tail" style={{display: `inline`}}>ở đâu?</span>
-              <span className="distance-text" style={{display: `none`}}>Bạn còn cách
-                <span className="distance">100</span><span className="km">km</span>
+              <span className="question-tail" style={this.state.notAwnCSS}>ở đâu?</span>
+              <span className="distance-text" style={this.state.awnCSS}>Bạn còn cách
+                <span className="distance">{this.state.distance}</span><span className="km">km</span>
               </span>
               <span className="perfect-answer" style={{display: `none`}}>Chuẩn luôn!!</span> <span
               className="times-up" style={{display: `none`}}>Hết giờ :(</span> </span></div>
@@ -250,7 +255,7 @@ class MapPickerView extends React.Component {
           <p>Da gui: {this.state.isSend}</p>
         </div>
         <div id="clock" style={{display: `block`}} className=""><span>
-          <CountDown timeOut={this.state.timeOut}></CountDown>
+          <CountDown initialTimeRemaining={20} interval={20000}></CountDown>
         </span>s
         </div>
         <GettingStartedGoogleMap

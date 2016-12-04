@@ -22,7 +22,7 @@ class AuthView extends Component {
     render() {
 
         let {dispatch} = this.props;
-        let {formState, currentlySending, error} = this.props.data.authFormReducer;
+        let {formState, currentlySending, error} = this.props.data.auth;
         console.log(formState);
         return (
             <div id='login'>
