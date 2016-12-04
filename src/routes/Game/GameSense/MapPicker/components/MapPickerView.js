@@ -253,4 +253,23 @@ class MapPickerView extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    mapPicker: state.mapPickerReducer
+  }
+}
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onTodoClick: (id) => {
+//       dispatch(toggleTodo(id))
+//     }
+//   }
+// }
+
+const MapPickerView = connect(
+  mapStateToProps,
+  //mapDispatchToProps
+)(MapPickerView);
+
 export default MapPickerView

@@ -14,6 +14,7 @@ import GameRoute from './Game'
 import AuthRoute from './AuthMain'
 import SettingRoute from './Setting'
 import ScoreRoute from './Score'
+import CounterRoute from './Counter'
 import {clearError} from '../actions'
 import {store} from '../main'
 
@@ -54,8 +55,11 @@ export const createRoutes = (store) => ([
   {
     path: '/',
     onEnter: checkAuth,
-    component: CoreLayout,
-    indexRoute: DashboardRoute
+    component: OneColumnLayout,
+    indexRoute: DashboardRoute,
+    childRoutes: [
+      CounterRoute(store)
+    ]
   },
   {
     path: '/intro',

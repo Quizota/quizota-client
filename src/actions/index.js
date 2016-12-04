@@ -76,3 +76,50 @@ export function requestError (error) {
 export function clearError () {
   return { type: CLEAR_ERROR }
 }
+
+export function handleSocket() {
+  return function(state, dispatch) {
+    socket.setHandler(function (resData) {
+      if (resData.code == "syncGameData" || resData.code == "startGame") {
+        console.log("Co cau hoi moi:", resData.data.data.newQuestion)
+        if (resData.data.cmd == "newQuestion" ) {
+          dispatch(handleNewQuestion());
+
+
+          let newLocationData = resData.data.data.newQuestion
+          console.log('newLocationData:', newLocationData)
+          let _correctMarker = {
+            lat: newLocationData.latitude,
+            lng: newLocationData.longitude,
+            name: newLocationData.name,
+            defaultAnimation: 4,
+            key: Date.now()
+          }
+          if (resData.code == "startGame") {
+            selfApp.setState({
+              gameStatus: 'Bắt đầu game'
+            })
+          }
+          selfApp.setState({
+            correctMarker: _correctMarker,
+          })
+          console.log("State change:", selfApp.state.correctMarker)
+        }
+      }
+      else if (resData.code == "waitingStartGame") {
+        let delay = resData.data.waitingTime
+        selfApp.setState({
+          startIn: delay,
+          gameStatus: 'Chờ bắt đầu game'
+        })
+      }
+    })
+  }
+
+}
+
+function handleNewQuestion() {
+  return {
+    type: 'NEW_QUESTION'
+  };
+}

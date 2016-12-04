@@ -24,6 +24,16 @@ export default function mapPickerReducer (state = initialState, action) {
       return {...state, isSended: action.newIsSended}
     case SEND_ANWSER:
       return {...state, isSended: action.newIsSended}
+    case 'HANDLE_NEW_QUESTION':
+      return {
+        circleDistance:{},
+        isSended: false,
+        correctMarker: {},
+        gameStatus: 'Có câu hỏi mới, Xóa dữ liệu cũ',
+        timeOut: 10,
+        awnCSS: {display: `none`},
+        notAwnCSS: {display: `inline`}
+      }
     default:
       return state
   }
