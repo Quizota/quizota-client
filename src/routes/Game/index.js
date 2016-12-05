@@ -1,6 +1,6 @@
 import { injectReducer } from '../../store/reducers'
 
-import GameView from './components/Game'
+import Game from './components/Game'
 
 export default (store) => ({
   /*  Async getComponent is only invoked when route matches   */

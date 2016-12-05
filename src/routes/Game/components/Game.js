@@ -1,7 +1,7 @@
 import React from 'react'
 import {IndexLink, Link} from 'react-router'
 import './GameView.scss'
-import MapPickerView from '../../../components/MapPicker/components/MapPickerView'
+import MapPickerView from '../GameSense/MapPicker/components/MapPickerView'
 import socket from '../../../SocketIO'
 
 const nameAlphaCSS = {
@@ -131,10 +131,6 @@ export const Game = (props) => (
             <div className="name-vs">Phuong</div>
           </div>
           <div className="gameInner" style={{height: `100%`}}>
-            <h2>Counter: {props.counterX}</h2>
-            <button className='btn btn-default' onClick={props.incrementX}>
-              Increment
-            </button>
             <MapPickerView></MapPickerView>
           </div>
         </div>

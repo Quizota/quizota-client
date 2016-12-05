@@ -13,6 +13,7 @@ export const makeRootReducer = (asyncReducers) => {
 }
 
 export const injectReducer = (store, { key, reducer }) => {
+    
     if (Object.hasOwnProperty.call(store.asyncReducers, key)) return
 
     store.asyncReducers[key] = reducer

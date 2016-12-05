@@ -11,3 +11,4 @@ export const CLEAR_ERROR = 'CLEAR_ERROR'
 
 export const NEW_QUESTION = "NEW_QUESTION"
 export const SEND_ANWSER = "SEND_ANWSER"
+export const SUBMIT_ANWSER = "SUBMIT_ANWSER"
