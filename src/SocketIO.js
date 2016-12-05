@@ -1,5 +1,5 @@
 const io = require('socket.io-client');
-var socket = io('http://localhost:8000/')
+var socket = io('http://quizota.com:8000/')
 let handler = null
 
 class Socket {
