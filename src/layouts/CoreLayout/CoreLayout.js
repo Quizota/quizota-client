@@ -6,20 +6,20 @@ import '../../styles/core.scss'
 
 class CoreLayout extends React.Component {
 
-  componentDidMount() {
+  componentDidMount () {
   }
-  render() {
+  render () {
     return (
       <div>
         <div className='core-layout__viewport'>
-          <div className="dashboard">
-            <div className="container-fluid">
+          <div className='dashboard'>
+            <div className='container-fluid'>
               <Sidebar />
               {this.props.children}
             </div>
           </div>
         </div>
-        <Footer></Footer>
+        <Footer />
       </div>
     )
   }

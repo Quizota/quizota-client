@@ -1,16 +1,15 @@
 import React from 'react'
-import { IndexLink, Link } from 'react-router'
+import { IndexLink } from 'react-router'
 import './Header.scss'
 
 export const Header = () => (
-  <header id="Header">
-    <div className="container-fluid inner">
-      <div id="Branding" className="col-md-1">
-        <a href="#">
-        </a>
+  <header id='Header'>
+    <div className='container-fluid inner'>
+      <div id='Branding' className='col-md-1'>
+        <a href='#' />
       </div>
-      <div className=" col-md-9 main-nav">
-        <ul id="Nav" className="hidden-xs hidden-sm">
+      <div className=' col-md-9 main-nav'>
+        <ul id='Nav' className='hidden-xs hidden-sm'>
           <li>
             <IndexLink to='/' activeClassName='route--active'>
               Home
@@ -48,10 +47,9 @@ export const Header = () => (
           </li>
         </ul>
       </div>
-      <div className="col-md-2 icons-wrap">
-      </div>
+      <div className='col-md-2 icons-wrap' />
     </div>
-    <div className="container-fluid bg"></div>
+    <div className='container-fluid bg' />
   </header>
 )
 export default Header

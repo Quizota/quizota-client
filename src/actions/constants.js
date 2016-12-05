@@ -9,6 +9,6 @@ export const CLEAR_ERROR = 'CLEAR_ERROR'
 
 // Map Picker
 
-export const NEW_QUESTION = "NEW_QUESTION"
-export const SEND_ANWSER = "SEND_ANWSER"
-export const SUBMIT_ANWSER = "SUBMIT_ANWSER"
+export const NEW_QUESTION = 'NEW_QUESTION'
+export const SEND_ANWSER = 'SEND_ANWSER'
+export const SUBMIT_ANWSER = 'SUBMIT_ANWSER'

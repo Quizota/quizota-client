@@ -38,8 +38,15 @@ let auth = {
    */
   loggedIn () {
     let users = JSON.parse(localStorage.users)
-    if (users.userName !== "") {
-      socket.emitData('data', { "cmd": "login", "data": { "userName": users["userName"], "password": users["password"] } })
+    if (users.userName !== '') {
+      socket.emitData(
+          'data',
+        { 'cmd':
+          'login',
+          'data':
+          { 'userName': users['userName'], 'password': users['password'] }
+        }
+      )
       return true
     }
     return false

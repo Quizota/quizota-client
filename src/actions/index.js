@@ -9,7 +9,6 @@ import {
   CLEAR_ERROR
 } from './constants'
 import socket from '../SocketIO'
-import _ from "lodash";
 /**
  * Sets the form state
  * @param {object} newFormState
@@ -78,12 +77,12 @@ export function clearError () {
   return { type: CLEAR_ERROR }
 }
 
-export function handleSocket() {
-  return function(dispatch, state) {
+export function handleSocket () {
+  return function (dispatch, state) {
     socket.setHandler(function (resData) {
-      if (resData.code == "syncGameData" || resData.code == "startGame") { 
-        if (resData.data.cmd == "newQuestion" ) {
-          let newLocationData = resData.data.data.newQuestion 
+      if (resData.code === 'syncGameData' || resData.code === 'startGame') {
+        if (resData.data.cmd === 'newQuestion') {
+          let newLocationData = resData.data.data.newQuestion
           let _correctMarker = {
             lat: newLocationData.latitude,
             lng: newLocationData.longitude,
@@ -92,46 +91,46 @@ export function handleSocket() {
           }
           dispatch(handleNewQuestion(_correctMarker))
         }
-      }
-      else if (resData.code == "waitingStartGame") {
+      } else if (resData.code === 'waitingStartGame') {
         let delay = resData.data.waitingTime
+        console.log(delay)
       }
     })
   }
 }
 
-function handleNewQuestion(questionData) {
+function handleNewQuestion (questionData) {
   return {
     type: 'NEW_QUESTION',
     data: questionData
-  };
+  }
 }
 
-function getDistanceFromLatLonInKm(locationFrom, locationTo) {
-  var R = 6371; // Radius of the earth in km
-  var dLat = deg2rad(locationTo.lat - locationFrom.lat);  // deg2rad below
-  var dLon = deg2rad(locationTo.lng - locationFrom.lng);
+function getDistanceFromLatLonInKm (locationFrom, locationTo) {
+  var R = 6371 // Radius of the earth in km
+  var dLat = deg2rad(locationTo.lat - locationFrom.lat)  // deg2rad below
+  var dLon = deg2rad(locationTo.lng - locationFrom.lng)
   var a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(deg2rad(locationFrom.lat)) * Math.cos(deg2rad(locationTo.lat)) *
       Math.sin(dLon / 2) * Math.sin(dLon / 2)
-    ;
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  var d = R * c; // Distance in km
-  return d;
+
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+  var d = R * c // Distance in km
+  return d
 }
 
-function deg2rad(deg) {
+function deg2rad (deg) {
   return deg * (Math.PI / 180)
 }
 
-export function handleMapClick(event) {
-  return function(dispatch, state) {
+export function handleMapClick (event) {
+  return function (dispatch, state) {
     if (!state().mapPicker.isSended) {
       const _pickedMarker = [{
         position: event.latLng,
         defaultAnimation: 4,
-        key: Date.now(), // Add a key property for: http://fb.me/react-warning-keys
+        key: Date.now() // Add a key property for: http://fb.me/react-warning-keys
       }]
 
       const _circleDistance = {
@@ -142,23 +141,23 @@ export function handleMapClick(event) {
         key: Date.now()
       }
 
-      let _pickerLatLng = {lat: event.latLng.lat(), lng: event.latLng.lng()}
-      let _currentPos = {lat: state().mapPicker.correctMarker.lat, lng: state().mapPicker.correctMarker.lng}
+      let _pickerLatLng = { lat: event.latLng.lat(), lng: event.latLng.lng() }
+      let _currentPos = { lat: state().mapPicker.correctMarker.lat, lng: state().mapPicker.correctMarker.lng }
       let _distance = getDistanceFromLatLonInKm(_pickerLatLng, _currentPos).toFixed(0)
       socket.emitData('data', {
-        "cmd": "syncGameData",
-        "data": {"cmd": "gameAction", "data": {"lat": event.latLng.lat(), "lng": event.latLng.lng()}}
+        'cmd': 'syncGameData',
+        'data': { 'cmd': 'gameAction', 'data': { 'lat': event.latLng.lat(), 'lng': event.latLng.lng() } }
       })
       dispatch(handleSubmitAnwser({
-          pickedMarker: _pickedMarker,
-          circleDistance: _circleDistance,
-          distance: _distance
-        }))
+        pickedMarker: _pickedMarker,
+        circleDistance: _circleDistance,
+        distance: _distance
+      }))
     }
   }
 }
 
-function handleSubmitAnwser(data) {
+function handleSubmitAnwser (data) {
   return {
     type: 'SUBMIT_ANWSER',
     data: data

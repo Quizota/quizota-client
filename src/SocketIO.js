@@ -1,36 +1,35 @@
-const io = require('socket.io-client');
-var socket = io('http://quizota.com:8000/')
+const io = require('socket.io-client')
+var socket = io('http://localhost:8000/')
 let handler = null
 
 class Socket {
-  constructor() {
+  constructor () {
   }
-  newfunc() {
+  newfunc () {
 
   }
-  connectSocket(token) {
+  connectSocket (token) {
     if (socket) {
     } else {
-      socket.on('connect', function(){
+      socket.on('connect', function () {
         console.log('Thông báo: Đã kết nối đến máy chủ trò chơi')
-      });
-
+      })
     }
   }
 
-  setHandler(_handler) {
+  setHandler (_handler) {
     handler = _handler
-    socket.on('data', function(responseData){
-      if(handler) {
+    socket.on('data', function (responseData) {
+      if (handler) {
         handler(responseData)
       }
-    });
+    })
   }
 
-  emitData(event, eventData) {
+  emitData (event, eventData) {
     socket.emit(event, eventData)
     console.log('go emit data')
   }
 }
 
-export default new Socket
+export default new Socket()

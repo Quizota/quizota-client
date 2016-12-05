@@ -1,28 +1,27 @@
 import React from 'react'
 import Footer from '../../components/Footer'
-import AuthLayoutCss from './AuthLayout.scss'
-
+import './AuthLayout.scss'
 
 class AuthLayout extends React.Component {
-  componentWillMount() {
-    document.body.classList.add("page-auth")
+  componentWillMount () {
+    document.body.classList.add('page-auth')
   }
 
-  componentWillUnmount() {
-    document.body.classList.remove("page-auth")
+  componentWillUnmount () {
+    document.body.classList.remove('page-auth')
   }
 
-  render() {
+  render () {
     return (
       <div>
-        <div className="OneColumnLayout">
+        <div className='OneColumnLayout'>
           <div className='core-layout__viewport'>
             {this.props.children}
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     )
   }
 }
-export default  AuthLayout
+export default AuthLayout

@@ -4,10 +4,10 @@ import './OneColumnLayout.scss'
 import '../../styles/core.scss'
 
 export const OneColumnLayout = ({ children }) => (
-  <div className="OneColumnLayout">
+  <div className='OneColumnLayout'>
     <Header />
     <div className='core-layout__viewport'>
-          {children}
+      {children}
     </div>
   </div>
 )

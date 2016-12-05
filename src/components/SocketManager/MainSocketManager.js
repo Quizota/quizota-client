@@ -16,12 +16,12 @@ let server = {
    * Populates the users, similar to seeding a database in the real world
    */
   init () {
-    if (localStorage.users === undefined ) {
+    if (localStorage.users === undefined) {
       // Set default user
       users = {
-        "userName": "",
-        "password": "",
-        "displayName": ""
+        'userName': '',
+        'password': '',
+        'displayName': ''
       }
       localStorage.users = JSON.stringify(users)
       localStorage.encrypted = true
@@ -38,16 +38,16 @@ let server = {
   login (userName, password) {
     let userExists = this.doesUserExist()
     return new Promise((resolve, reject) => {
-      console.log('go login:',userName, password)
+      console.log('go login:', userName, password)
       // If the user exists and the password fits log the user in and resolve
       console.log(userExists)
       if (userExists) {
         socket.setHandler(function (resData) {
-          if (resData.code == "loginSuccess") {
+          if (resData.code === 'loginSuccess') {
             console.log('res data:', resData.data.profile)
-            users["userName"] = resData.data.profile.userName
-            users["password"] = resData.data.profile.password
-            users["displayName"] = resData.data.profile.displayName
+            users['userName'] = resData.data.profile.userName
+            users['password'] = resData.data.profile.password
+            users['displayName'] = resData.data.profile.displayName
             localStorage.users = JSON.stringify(users)
             resolve({
               authenticated: true
@@ -56,7 +56,12 @@ let server = {
         })
         let localUserData = JSON.parse(localStorage.users)
         console.log('localUserData', localUserData)
-        socket.emitData('data', { "cmd": "login", "data": { "userName": users["userName"], "password": users["password"] } })
+        socket.emitData(
+            'data',
+          { 'cmd':
+            'login',
+            'data': { 'userName': users['userName'], 'password': users['password'] }
+          })
         return
       } else {
         // Set the appropiate error and reject
@@ -81,19 +86,19 @@ let server = {
     return new Promise((resolve, reject) => {
       if (!this.doesUserExist()) {
         socket.setHandler(function (resData) {
-          if (resData.code == "loginSuccess") {
+          if (resData.code === 'loginSuccess') {
             console.log('res data:', resData.data.profile)
-            users["userName"] = resData.data.profile.userName
-            users["password"] = resData.data.profile.password
-            users["displayName"] = resData.data.profile.displayName
+            users['userName'] = resData.data.profile.userName
+            users['password'] = resData.data.profile.password
+            users['displayName'] = resData.data.profile.displayName
             console.log('registed user:', users)
             localStorage.users = JSON.stringify(users)
             resolve(
-              {registered: true, userName: resData.data.profile.userName, password: resData.data.profile.password}
+              { registered: true, userName: resData.data.profile.userName, password: resData.data.profile.password }
             )
           }
         })
-        socket.emitData('data', { "cmd": "autoRegister", "data": { "displayName": displayName} })
+        socket.emitData('data', { 'cmd': 'autoRegister', 'data': { 'displayName': displayName } })
         return
         // Resolve when done
       } else {
@@ -117,7 +122,7 @@ let server = {
    */
   doesUserExist () {
     console.log('user exist', users.userName)
-    return !(users["userName"] === "")
+    return !(users['userName'] === '')
   }
 }
 

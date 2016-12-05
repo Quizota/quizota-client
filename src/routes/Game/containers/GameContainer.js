@@ -21,5 +21,4 @@ const mapStateToProps = (state) => ({
   counterX : state.counterX
 })
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(Game)
