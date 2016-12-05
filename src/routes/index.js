@@ -55,7 +55,7 @@ export const createRoutes = (store) => ([
   {
     path: '/',
     onEnter: checkAuth,
-    component: OneColumnLayout,
+    component: CoreLayout,
     indexRoute: DashboardRoute,
     childRoutes: [
       CounterRoute(store)
