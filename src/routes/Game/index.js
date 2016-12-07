@@ -11,10 +11,6 @@ export default (store) => ({
       /*  Webpack - use require callback to define
        dependencies for bundling   */
       const Game = require('./containers/GameContainer').default
-      const reducer = require('./modules/game').default
-
-      /*  Add the reducer to the store on key 'counter'  */
-      injectReducer(store, { key: 'counterX', reducer })
 
       /*  Return getComponent   */
       cb(null, Game)

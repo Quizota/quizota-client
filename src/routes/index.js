@@ -9,11 +9,10 @@ import GameRoute from './Game'
 import AuthRoute from './AuthMain'
 import SettingRoute from './Setting'
 import ScoreRoute from './Score'
-import CounterRoute from './Counter'
 import { clearError } from '../actions'
 import { store } from '../main'
-
-import socket from '../SocketIO'
+const io = require('socket.io-client')
+const SOCKET_IO_MESSAGE = 'SOCKET_IO_MESSAGE'; 
 
 /*  Note: Instead of using JSX, we recommend using react-router
  PlainRoute objects to build route definitions.   */
@@ -41,9 +40,6 @@ export const createRoutes = (store) => ([
     onEnter: checkAuth,
     component: CoreLayout,
     indexRoute: DashboardRoute,
-    childRoutes: [
-      CounterRoute(store)
-    ]
   },
   {
     path: '/intro',

@@ -1,34 +1,19 @@
 const io = require('socket.io-client')
+const SOCKET_IO_MESSAGE = 'SOCKET_IO_MESSAGE';
+
 var socket = io('http://localhost:8000/')
-let handler = null
 
-class Socket {
-  constructor () {
-  }
-  newfunc () {
+export function emitData (event, eventData) {
+  console.log("go", event, eventData)
+  socket.emit(event, eventData)
+}
 
-  }
-  connectSocket (token) {
-    if (socket) {
-    } else {
-      socket.on('connect', function () {
-        console.log('Thông báo: Đã kết nối đến máy chủ trò chơi')
-      })
-    }
-  }
-
-  setHandler (_handler) {
-    handler = _handler
-    socket.on('data', function (responseData) {
-      if (handler) {
-        handler(responseData)
-      }
-    })
-  }
-
-  emitData (event, eventData) {
-    socket.emit(event, eventData)
+export function attachListener(func) {
+  //Return a thunk, so that we can access dispatch
+  return function(dispatch) {
+    //We're passing dispatch into our listener so that it can dispatch events to redux.
+    socket.on('data', func(dispatch));
   }
 }
 
-export default new Socket()
+

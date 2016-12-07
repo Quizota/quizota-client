@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import { incrementX, doubleAsyncX } from '../modules/game'
 
 /*  This is a container component. Notice it does not contain any JSX,
  nor does it import React. This component is **only** responsible for
@@ -13,12 +12,9 @@ import Game from '../components/Game'
  implementing our wrapper around increment; the component doesn't care   */
 
 const mapDispatchToProps = {
-  incrementX : () => incrementX(1),
-  doubleAsyncX
 }
 
 const mapStateToProps = (state) => ({
-  counterX : state.counterX
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game)

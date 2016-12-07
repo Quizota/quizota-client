@@ -45,7 +45,7 @@ class GameProcessView extends React.Component {
           <FindOutGameView />
         </div>
       )
-    } else if (this.props.isStep === `startGame` || this.props.isStep === `syncGameData`) {
+    } else if (this.props.isStep === `startGame` || this.props.isStep === `inGame`) {
       return (
         <div style={{ height: `100%`}}>
           <MapPickerView />

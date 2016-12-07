@@ -3,36 +3,15 @@ import { IndexLink, Link, browserHistory } from 'react-router'
 import DocumentTitle from 'react-document-title'
 import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import socket from '../../../SocketIO'
-
-var showClass
+import { emitData } from '../../../SocketIO'
 
 class DashboardView extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
-      mounted: false
-    }
-    socket.setHandler(function (resData) {
-      if (resData.code == 'notFoundParticipant') {
-        console.log("Can't join game")
-        return
-      } else if (resData.code == 'playerJoinBoardSuccess') {
-        browserHistory.push(`/game`)
-        console.log('Tìm được người chơi, chuẩn bị bắt đầu')
-        if (resData.data.length > 0) {
-          console.log('other user data:', resData.data)
-        } else {
-          console.log('waiting for other user')
-        }
-      } else if (resData.code == 'newPlayerJoinBoard') {
-        console.log('other user data:', resData)
-      }
-    })
   }
 
   playNow () {
-    socket.emitData('data', { 'cmd': 'playNow', 'data': {} })
+    emitData('data', { 'cmd': 'playNow', 'data': {} })
   }
   componentDidMount () {
     this.setState({ mounted: true })
@@ -55,10 +34,6 @@ class DashboardView extends React.Component {
   }
 
   render () {
-    var showClassName
-    if (this.state.mounted) {
-      showClassName = 'show'
-    }
     return (
       <div>
         <section id='mode'>
@@ -69,7 +44,7 @@ class DashboardView extends React.Component {
               <div className='wrap'>
                 <h3>Bắt đầu hành trình</h3>
                 <h4>Lựa chọn kiểu chơi</h4>
-                <div id='ranking-mode' className={{ showClassName }} onClick={this.playNow}>
+                <div id='ranking-mode' className="show"  onClick={this.playNow}>
                   <span className='bg_rankingmode'>
                     <i className='big-arrow arrow-a' />
                     <i className='big-arrow arrow-b' />
@@ -82,7 +57,7 @@ class DashboardView extends React.Component {
                     </p>
                   </div>
                 </div>
-                <div id='beginner-mode' className={{ showClassName }}>
+                <div id='beginner-mode' className="show" >
                   <span className='bg_beginnermode'>
                     <i className='big-arrow arrow-a' />
                     <i className='big-arrow arrow-b' />

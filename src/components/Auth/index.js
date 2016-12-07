@@ -1,5 +1,5 @@
 import request from './authSocketManager'
-import socket from '../../SocketIO'
+import { emitData } from '../../SocketIO'
 
 let localStorage
 
@@ -39,7 +39,7 @@ let auth = {
   loggedIn () {
     let users = JSON.parse(localStorage.users)
     if (users.userName !== '') {
-      socket.emitData(
+      emitData(
           'data',
         { 'cmd':
           'login',

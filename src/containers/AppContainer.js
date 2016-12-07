@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { browserHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
-import { handleSocket } from '../actions'
+import { listener } from '../actions'
 import { connect } from 'react-redux'
 import './AppContainer.scss'
+import { attachListener } from '../SocketIO'
 
 class AppContainer extends Component {
   static propTypes = {
@@ -12,10 +13,12 @@ class AppContainer extends Component {
   }
   constructor (props) {
     super(props)
-    props.handleSocket()
   }
   shouldComponentUpdate () {
     return false
+  }
+  componentWillMount() {
+    this.props.init();
   }
 
   render () {
@@ -38,9 +41,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleSocket: (event) => {
-      dispatch(handleSocket(event))
-    }
+    init: () => dispatch(attachListener(listener))
   }
 }
 
