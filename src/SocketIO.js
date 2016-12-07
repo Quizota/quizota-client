@@ -1,6 +1,6 @@
 const io = require('socket.io-client')
 const SOCKET_IO_MESSAGE = 'SOCKET_IO_MESSAGE';
-var socket = io('http://localhost:8000/')
+var socket = io('http://quizota.com:8000/')
 let handlerSocket
 
 export function emitData (event, eventData) {
