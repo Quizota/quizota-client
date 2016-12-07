@@ -8,10 +8,14 @@ import { emitData } from '../../../SocketIO'
 class DashboardView extends React.Component {
   constructor (props) {
     super(props)
+    this.playNow = this.playNow.bind(this)
   }
 
   playNow () {
+
     emitData('data', { 'cmd': 'playNow', 'data': {} })
+
+    this.context.router.push('/game')
   }
   componentDidMount () {
     this.setState({ mounted: true })
@@ -80,6 +84,10 @@ class DashboardView extends React.Component {
 
     )
   }
+}
+
+DashboardView.contextTypes = {
+  router: React.PropTypes.object.isRequried
 }
 
 function select (state) {

@@ -180,6 +180,7 @@ export function listener(dispatch) {
     } else if (resData.code == 'joinLobbySuccess') {
       browserHistory.push(`/dashboard`)
     }
+
     console.log("Handle Socket code:", resData.code)
     dispatch(handleBoardStatus(resData.code))
     if (resData.code === 'syncGameData' || resData.code === 'startGame') {

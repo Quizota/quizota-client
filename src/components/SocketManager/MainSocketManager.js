@@ -1,4 +1,4 @@
-import { emitData } from '../../SocketIO'
+import { emitData, setHandler } from '../../SocketIO'
 
 let users
 let localStorage
@@ -42,18 +42,19 @@ let server = {
       // If the user exists and the password fits log the user in and resolve
       console.log(userExists)
       if (userExists) {
-        // socket.setHandler(function (resData) {
-        //   if (resData.code === 'loginSuccess') {
-        //     console.log('res data:', resData.data.profile)
-        //     users['userName'] = resData.data.profile.userName
-        //     users['password'] = resData.data.profile.password
-        //     users['displayName'] = resData.data.profile.displayName
-        //     localStorage.users = JSON.stringify(users)
-        //     resolve({
-        //       authenticated: true
-        //     })
-        //   }
-        // })
+        setHandler(function (resData) {
+          console.log("login user:", resData)
+          if (resData.code === 'loginSuccess') {
+            console.log('res data:', resData.data.profile)
+            users['userName'] = resData.data.profile.userName
+            users['password'] = resData.data.profile.password
+            users['displayName'] = resData.data.profile.displayName
+            localStorage.users = JSON.stringify(users)
+            resolve({
+              authenticated: true
+            })
+          }
+        })
         let localUserData = JSON.parse(localStorage.users)
         console.log('localUserData', localUserData)
         emitData(
@@ -85,19 +86,20 @@ let server = {
   register (displayName, password) {
     return new Promise((resolve, reject) => {
       if (!this.doesUserExist()) {
-        // socket.setHandler(function (resData) {
-        //   if (resData.code === 'loginSuccess') {
-        //     console.log('res data:', resData.data.profile)
-        //     users['userName'] = resData.data.profile.userName
-        //     users['password'] = resData.data.profile.password
-        //     users['displayName'] = resData.data.profile.displayName
-        //     console.log('registed user:', users)
-        //     localStorage.users = JSON.stringify(users)
-        //     resolve(
-        //       { registered: true, userName: resData.data.profile.userName, password: resData.data.profile.password }
-        //     )
-        //   }
-        // })
+        setHandler(function (resData) {
+          console.log("go register")
+          if (resData.code === 'loginSuccess') {
+            console.log('res data:', resData.data.profile)
+            users['userName'] = resData.data.profile.userName
+            users['password'] = resData.data.profile.password
+            users['displayName'] = resData.data.profile.displayName
+            console.log('registed user:', users)
+            localStorage.users = JSON.stringify(users)
+            resolve(
+              { registered: true, userName: resData.data.profile.userName, password: resData.data.profile.password }
+            )
+          }
+        })
         emitData('data', { 'cmd': 'autoRegister', 'data': { 'displayName': displayName } })
         return
         // Resolve when done

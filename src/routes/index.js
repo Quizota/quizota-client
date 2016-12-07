@@ -12,16 +12,14 @@ import ScoreRoute from './Score'
 import { clearError } from '../actions'
 import { store } from '../main'
 const io = require('socket.io-client')
-const SOCKET_IO_MESSAGE = 'SOCKET_IO_MESSAGE'; 
+const SOCKET_IO_MESSAGE = 'SOCKET_IO_MESSAGE';
 
 /*  Note: Instead of using JSX, we recommend using react-router
  PlainRoute objects to build route definitions.   */
 
-export const connectToSocket = (store) => (
-  socket.connectSocket('connect@token')
-)
 function checkAuth (nextState, replace) {
   let { loggedIn } = store.getState().auth
+  console.log(loggedIn)
   store.dispatch(clearError())
   // Check if the path isn't dashboard. That way we can apply specific logic to
   // display/render the path we want to

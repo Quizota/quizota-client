@@ -23,7 +23,7 @@ const config = {
   // ----------------------------------
   // Server Configuration
   // ----------------------------------
-  server_host : ip.address(), // use string 'localhost' to prevent exposure on local network
+  server_host : 'localhost' , // use string 'localhost' to prevent exposure on local network, ip.address()
   server_port : process.env.PORT || 3001,
   server_port_public : 80,
   server_domain: `quizota.com`,

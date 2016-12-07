@@ -149,9 +149,7 @@ export const Sidebar = () => (
                     <img src='/img/archive/archive_icon.jpg' alt='' />
                   </span>
                 </a>
-                <span className='archiveIconLabel'>
-Trò chơi 1
-</span>
+                <span className='archiveIconLabel'>Trò chơi 1</span>
               </div>
             </div>
           </div>

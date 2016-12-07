@@ -1,5 +1,7 @@
 import React from 'react'
 import './Footer.scss'
+import LoadingBar from 'react-redux-loading-bar'
+
 
 export const Footer = () => (
   <footer id='footer'>

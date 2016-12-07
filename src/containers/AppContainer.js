@@ -5,6 +5,7 @@ import { listener } from '../actions'
 import { connect } from 'react-redux'
 import './AppContainer.scss'
 import { attachListener } from '../SocketIO'
+import NProgress from 'nprogress'
 
 class AppContainer extends Component {
   static propTypes = {
@@ -13,6 +14,11 @@ class AppContainer extends Component {
   }
   constructor (props) {
     super(props)
+  }
+  componentDidMount() {
+
+  }
+  componentWillUnmount() {
   }
   shouldComponentUpdate () {
     return false
