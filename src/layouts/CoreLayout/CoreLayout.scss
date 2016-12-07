@@ -23,7 +23,7 @@ body.dashboard {
     .ProfileHeader {
       background-position: 50%;
       background-size: cover;
-      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/img/user/cover.jpg");
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../static/img/user/cover.jpg");
     }
     &.hide {
       display: none;
@@ -204,7 +204,7 @@ a.MyMiniProfile__name {
 }
 
 .GameStats__part--won {
-  border-right: 4px solid #fff;
+  border-right: 2px solid #fff;
   background: #02d174;
   border-radius: 8px 0 0 8px;
 }
@@ -257,7 +257,7 @@ a.MyMiniProfile__name {
 }
 
 .GameStats__part--lost {
-  border-left: 4px solid #fff;
+  border-left: 2px solid #fff;
   background: #ff5454;
   border-radius: 0 8px 8px 0;
 }

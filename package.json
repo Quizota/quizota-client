@@ -112,6 +112,7 @@
     "react-s-alert": "^1.2.1",
     "react-socket": "^1.0.0-beta.0",
     "react-toastr": "^2.8.2",
+    "react-user-avatar": "^1.8.0",
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",
     "redux-observable": "^0.12.2",

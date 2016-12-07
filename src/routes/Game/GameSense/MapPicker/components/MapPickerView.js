@@ -8,7 +8,7 @@ import markerCorrect from '../img/mkRight.svg'
 import pickedMarker from '../img/mkPicked.svg'
 import markerVs from '../img/mkVs.svg'
 import { store } from '../../../../../main'
-import {handleMapClick } from '../../../../../actions'
+import { handleMapClick } from '../../../../../actions'
 import {
   withGoogleMap,
   GoogleMap,

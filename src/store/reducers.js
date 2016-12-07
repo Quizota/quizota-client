@@ -3,6 +3,7 @@ import locationReducer from './location'
 import authFormReducer from './authFrom'
 import mapPickerReducer from './mapPicker'
 import gameInfoReducer from './gameInfo'
+import usreInfoReducer from './userInfo'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -10,6 +11,7 @@ export const makeRootReducer = (asyncReducers) => {
     auth: authFormReducer,
     mapPicker: mapPickerReducer,
     gameInfo: gameInfoReducer,
+    userInfo: usreInfoReducer,
     ...asyncReducers
   })
 }

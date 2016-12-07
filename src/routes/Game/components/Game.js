@@ -9,7 +9,6 @@ import { store } from '../../../main'
 import { connect } from 'react-redux'
 import { handleSocket } from '../../../actions'
 
-
 const nameAlphaCSS = {
   left: '-37px'
 }
@@ -27,39 +26,38 @@ const scoreVSGlowlightCSS = {
   transform: 'translate(46.3054%, 0%) matrix(1, 0, 0, 1, 0, 0)'
 }
 
-
 class GameProcessView extends React.Component {
   constructor (props) {
     super(props)
   }
-  render() {
+  render () {
     if (this.props.isStep === `playerJoinBoardSuccess` || this.props.isStep === `idle`) {
       return (
-        <div style={{height: `100%`}}>
+        <div style={{ height: `100%` }}>
           <FindingGameView />
         </div>
       )
-    } else if (this.props.isStep === `waitingStartGame`  || this.props.isStep === `newPlayerJoinBoard`) {
+    } else if (this.props.isStep === `waitingStartGame` || this.props.isStep === `newPlayerJoinBoard`) {
       return (
-        <div style={{ height: `100%`}}>
+        <div style={{ height: `100%` }}>
           <FindOutGameView />
         </div>
       )
     } else if (this.props.isStep === `startGame` || this.props.isStep === `inGame`) {
       return (
-        <div style={{ height: `100%`}}>
+        <div style={{ height: `100%` }}>
           <MapPickerView />
         </div>
       )
     } else if (this.props.isStep === `endGame`) {
       return (
-        <div style={{ height: `100%`}}>
+        <div style={{ height: `100%` }}>
           <GameResultView />
         </div>
       )
     } else {
       return (
-        <div style={{height: `100%`}}>
+        <div style={{ height: `100%` }}>
           <FindingGameView />
         </div>
       )
@@ -71,21 +69,21 @@ class Game extends React.Component {
   constructor (props) {
     super(props)
   }
-  render() {
+  render () {
     return (
       <div>
         <section id='game'>
-          <div className='noise'/>
-          <div className='dark'/>
+          <div className='noise' />
+          <div className='dark' />
           <div className='dashboard__main'>
             <div className='home__findingMatch home__activity'>
-              <div className='score-overlay'/>
+              <div className='score-overlay' />
               <div id='quizota-score' className='opaque'>
                 <div className='name-alpha' style={nameAlphaCSS}>Hoi</div>
-                <span className='score-alpha-glow score-glow'/>
+                <span className='score-alpha-glow score-glow' />
                 <div className='score-alpha'>
                   <span style={scoreAlphaGlowlightCSS}>
-                    <i className='glow'/>
+                    <i className='glow' />
                   </span>
                 </div>
                 {/* Check point */}
@@ -98,16 +96,16 @@ class Game extends React.Component {
                   </div>
                 </div>
                 {/* vs score */}
-                <span className='score-vs-glow score-glow'/>
+                <span className='score-vs-glow score-glow' />
                 <div className='score-vs'>
                   <span style={scoreVSGlowlightCSS}>
-                    <i className='glow'/>
+                    <i className='glow' />
                   </span>
                 </div>
                 <div className='name-vs'>Phuong</div>
               </div>
-              <div className='gameInner' style={{height: `100%`}}>
-                <GameProcessView isStep={this.props.gameInfo.boardStatus}/>
+              <div className='gameInner' style={{ height: `100%` }}>
+                <GameProcessView isStep={this.props.gameInfo.boardStatus} />
               </div>
             </div>
           </div>

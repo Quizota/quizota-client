@@ -43,7 +43,7 @@ let server = {
       console.log(userExists)
       if (userExists) {
         setHandler(function (resData) {
-          console.log("login user:", resData)
+          console.log('login user:', resData)
           if (resData.code === 'loginSuccess') {
             console.log('res data:', resData.data.profile)
             users['userName'] = resData.data.profile.userName
@@ -87,7 +87,7 @@ let server = {
     return new Promise((resolve, reject) => {
       if (!this.doesUserExist()) {
         setHandler(function (resData) {
-          console.log("go register")
+          console.log('go register')
           if (resData.code === 'loginSuccess') {
             console.log('res data:', resData.data.profile)
             users['userName'] = resData.data.profile.userName

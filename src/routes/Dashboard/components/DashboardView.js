@@ -12,7 +12,6 @@ class DashboardView extends React.Component {
   }
 
   playNow () {
-
     emitData('data', { 'cmd': 'playNow', 'data': {} })
 
     this.context.router.push('/game')
@@ -48,7 +47,7 @@ class DashboardView extends React.Component {
               <div className='wrap'>
                 <h3>Bắt đầu hành trình</h3>
                 <h4>Lựa chọn kiểu chơi</h4>
-                <div id='ranking-mode' className="show"  onClick={this.playNow}>
+                <div id='ranking-mode' className='show' onClick={this.playNow}>
                   <span className='bg_rankingmode'>
                     <i className='big-arrow arrow-a' />
                     <i className='big-arrow arrow-b' />
@@ -61,7 +60,7 @@ class DashboardView extends React.Component {
                     </p>
                   </div>
                 </div>
-                <div id='beginner-mode' className="show" >
+                <div id='beginner-mode' className='show' >
                   <span className='bg_beginnermode'>
                     <i className='big-arrow arrow-a' />
                     <i className='big-arrow arrow-b' />

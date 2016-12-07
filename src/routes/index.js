@@ -12,7 +12,7 @@ import ScoreRoute from './Score'
 import { clearError } from '../actions'
 import { store } from '../main'
 const io = require('socket.io-client')
-const SOCKET_IO_MESSAGE = 'SOCKET_IO_MESSAGE';
+const SOCKET_IO_MESSAGE = 'SOCKET_IO_MESSAGE'
 
 /*  Note: Instead of using JSX, we recommend using react-router
  PlainRoute objects to build route definitions.   */
@@ -37,7 +37,7 @@ export const createRoutes = (store) => ([
     path: '/',
     onEnter: checkAuth,
     component: CoreLayout,
-    indexRoute: DashboardRoute,
+    indexRoute: DashboardRoute
   },
   {
     path: '/intro',

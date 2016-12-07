@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { listener } from '../actions'
 import { connect } from 'react-redux'
 import './AppContainer.scss'
-import { attachListener } from '../SocketIO'
+import { attachListener, emitData } from '../SocketIO'
 import NProgress from 'nprogress'
 
 class AppContainer extends Component {
@@ -15,16 +15,17 @@ class AppContainer extends Component {
   constructor (props) {
     super(props)
   }
-  componentDidMount() {
-
+  componentDidMount () {
+    emitData('data', { "cmd": "getMyInfo", "data": {} })
   }
-  componentWillUnmount() {
+  componentWillUnmount () {
+
   }
   shouldComponentUpdate () {
     return false
   }
-  componentWillMount() {
-    this.props.init();
+  componentWillMount () {
+    this.props.init()
   }
 
   render () {

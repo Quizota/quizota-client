@@ -23,8 +23,8 @@ export default function gameInfoReducer (state = initialState, action) {
   switch (action.type) {
     case BOARD_STATUS:
       let gameAction = action.data
-      let gameStatus = ["playerJoinBoardSuccess", "newPlayerJoinBoard", "waitingStartGame", "startGame", "endGame"]
-      let inGameStatus = ["syncGameData", "processActionSuccess"]
+      let gameStatus = ['playerJoinBoardSuccess', 'newPlayerJoinBoard', 'waitingStartGame', 'startGame', 'endGame']
+      let inGameStatus = ['syncGameData', 'processActionSuccess']
       if (gameStatus.includes(gameAction)) {
         _boardStatus = action.data
       } else if (inGameStatus.includes(action.data)) {
