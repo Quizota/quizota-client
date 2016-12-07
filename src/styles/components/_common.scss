@@ -109,9 +109,6 @@ html, body, #root {
   padding-left: 1px;
 }
 @media (max-height: 600px), (max-width: 950px) {
-  .too-small {
-    display: block !important;
-  }
 }
 .too-small {
   display: none;

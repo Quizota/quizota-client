@@ -7,8 +7,8 @@ export const LOGOUT = 'LOGOUT'
 export const REQUEST_ERROR = 'REQUEST_ERROR'
 export const CLEAR_ERROR = 'CLEAR_ERROR'
 
-// Map Picker
-
+// Game
+export const BOARD_STATUS = 'BOARD_STATUS'
 export const NEW_QUESTION = 'NEW_QUESTION'
 export const SEND_ANWSER = 'SEND_ANWSER'
 export const SUBMIT_ANWSER = 'SUBMIT_ANWSER'

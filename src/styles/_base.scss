@@ -1,5 +1,5 @@
 @import 'bourbon/bourbon';
-@import 'variables'; 
+@import 'variables';
 @import 'grid-framework-custom';
 @import 'animate';
 @import 'fontface';
@@ -152,13 +152,12 @@ label > * { pointer-events: none; }
 
 }
 
-@media #{$desktopLargeUp}{
-  body{
-    background: #c8c8c8 url("http://localhost:3001/img/landing/intro_bg.jpg") center bottom no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-  }
+body{
+  background: url(../static/img/patterns/bg-pattern.png),#7b4397;
+  background: url(../static/img/patterns/bg-pattern.png),-webkit-linear-gradient(to left,#7b4397,#dc2430);
+  background: url(../static/img/patterns/bg-pattern.png),linear-gradient(to left,#7b4397,#dc2430);
 }
+
 @media #{$desktopUp}{
   body{
     // padding-top: $headerHeightDesktop;

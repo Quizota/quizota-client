@@ -27,7 +27,6 @@ let initialState = {
 }
 
 export default function mapPickerReducer (state = initialState, action) {
-  console.log('Action in mapPickerReducer:', action)
   switch (action.type) {
     case NEW_QUESTION:
       return Object.assign({}, state, {

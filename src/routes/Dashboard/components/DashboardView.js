@@ -32,7 +32,6 @@ class DashboardView extends React.Component {
   }
 
   playNow () {
-    console.log('go play now')
     socket.emitData('data', { 'cmd': 'playNow', 'data': {} })
   }
   componentDidMount () {

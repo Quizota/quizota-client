@@ -8,7 +8,7 @@ import markerCorrect from '../img/mkRight.svg'
 import pickedMarker from '../img/mkPicked.svg'
 import markerVs from '../img/mkVs.svg'
 import { store } from '../../../../../main'
-import { handleSocket, handleMapClick } from '../../../../../actions'
+import {handleMapClick } from '../../../../../actions'
 import {
   withGoogleMap,
   GoogleMap,
@@ -86,7 +86,6 @@ const BaseGameMap = withGoogleMap(props => (
 class MapPickerView extends React.Component {
   constructor (props) {
     super(props)
-    props.handleSocket()
   }
   render () {
     return (
@@ -138,9 +137,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleSocket: () => {
-      dispatch(handleSocket())
-    },
     handleMapClick: (event) => {
       dispatch(handleMapClick(event))
     }

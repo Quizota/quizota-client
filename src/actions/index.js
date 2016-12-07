@@ -80,6 +80,8 @@ export function clearError () {
 export function handleSocket () {
   return function (dispatch, state) {
     socket.setHandler(function (resData) {
+      console.log("Handle Socket code:", resData.code)
+      dispatch(handleBoardStatus(resData.code))
       if (resData.code === 'syncGameData' || resData.code === 'startGame') {
         if (resData.data.cmd === 'newQuestion') {
           let newLocationData = resData.data.data.newQuestion
@@ -92,8 +94,7 @@ export function handleSocket () {
           dispatch(handleNewQuestion(_correctMarker))
         }
       } else if (resData.code === 'waitingStartGame') {
-        let delay = resData.data.waitingTime
-        console.log(delay)
+        dispatch(handleBoardStatus(status))
       }
     })
   }
@@ -160,6 +161,13 @@ export function handleMapClick (event) {
 function handleSubmitAnwser (data) {
   return {
     type: 'SUBMIT_ANWSER',
+    data: data
+  }
+}
+
+function handleBoardStatus(data) {
+  return {
+    type: 'BOARD_STATUS',
     data: data
   }
 }
