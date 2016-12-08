@@ -4,6 +4,10 @@ import DocumentTitle from 'react-document-title'
 import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { emitData } from '../../../SocketIO'
+import ReactDOM from 'react-dom'
+import $ from 'jquery'
+import './DashboardView.scss'
+let showClass
 
 class DashboardView extends React.Component {
   constructor (props) {
@@ -16,24 +20,13 @@ class DashboardView extends React.Component {
 
     this.context.router.push('/game')
   }
-  componentDidMount () {
-    this.setState({ mounted: true })
-    console.log(this.state)
-  }
-  componentDidMount () {
-    let elementWillShow = ['ranking-mode', 'beginner-mode']
-    for (var item in elementWillShow) {
-      let itemClass = document.getElementById(elementWillShow[item]).classList
-      itemClass.add('show')
-    }
-  }
+  componentWillMount () {
 
+  }
+  componentDidMount() {
+    console.log('React dom:', ReactDOM.findDOMNode(this))
+  }
   componentWillUnmount () {
-    let elementWillShow = ['ranking-mode', 'beginner-mode']
-    for (var item in elementWillShow) {
-      let itemClass = document.getElementById(elementWillShow[item]).classList
-      itemClass.remove('show')
-    }
   }
 
   render () {
@@ -46,8 +39,7 @@ class DashboardView extends React.Component {
             <div className='home__activity'>
               <div className='wrap'>
                 <h3>Bắt đầu hành trình</h3>
-                <h4>Lựa chọn kiểu chơi</h4>
-                <div id='ranking-mode' className='show' onClick={this.playNow}>
+                <div id='ranking-mode' className="show" onClick={this.playNow}>
                   <span className='bg_rankingmode'>
                     <i className='big-arrow arrow-a' />
                     <i className='big-arrow arrow-b' />
@@ -60,19 +52,19 @@ class DashboardView extends React.Component {
                     </p>
                   </div>
                 </div>
-                <div id='beginner-mode' className='show' >
+                  <div id='beginner-mode'  className="show">
                   <span className='bg_beginnermode'>
                     <i className='big-arrow arrow-a' />
                     <i className='big-arrow arrow-b' />
                     <i className='big-arrow arrow-c' />
                   </span>
-                  <div className='right'>
-                    <p className='text'>
-                Đấu tùy chọn
-                <span>Đấu với bạn bè (Comming soon!!!)</span>
-                    </p>
+                    <div className='right'>
+                      <p className='text'>
+                        Đấu tùy chọn
+                        <span>Đấu với bạn bè (Comming soon!!!)</span>
+                      </p>
+                    </div>
                   </div>
-                </div>
               </div>
             </div></div>
         </section>

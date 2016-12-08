@@ -8,7 +8,9 @@ import {
   REQUEST_ERROR,
   CLEAR_ERROR,
   USER_INFO,
-  IN_GAME
+  IN_GAME,
+  GAME_ACTIVITY,
+  END_GAME_SESSION
 } from './constants'
 
 const SOCKET_IO_MESSAGE = 'SOCKET_IO_MESSAGE'
@@ -176,6 +178,22 @@ function handlerInGame (data) {
     data
   }
 }
+
+function handlerGameScore(data) {
+  return {
+    type: GAME_ACTIVITY,
+    data
+  }
+}
+
+function handlerEndGameSession(data) {
+  return {
+    type: END_GAME_SESSION,
+    data
+  }
+
+}
+
 export function listener (dispatch) {
   // This function is the actual event handler which will receive socket data.
   return function (resData) {
@@ -199,6 +217,10 @@ export function listener (dispatch) {
       dispatch(handleUserInfo(resData.data))
     } else if (resData.code === `waitingStartGame`) {
       dispatch(handlerInGame(resData.data))
+    } else if (resData.code === `processActionSuccess` ) {
+      dispatch(handlerGameScore(resData.data))
+    } else if (resData.code == `startGame`) {
+      dispatch(handlerEndGameSession(resData.data))
     }
     dispatch(handleBoardStatus(resData.code))
 

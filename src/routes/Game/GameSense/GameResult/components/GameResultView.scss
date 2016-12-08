@@ -2,7 +2,7 @@
   text-align: center;
   text-transform: uppercase;
   color: #ffffff;
-  font-family: "neciabold", Arial, sans-serif;
+
   font-weight: normal;
   font-style: normal;
   z-index: 1;
@@ -24,10 +24,13 @@
   -webkit-transition: opacity 0.3s cubic-bezier(0.19, 1, 0.22, 1), -webkit-transform 550ms cubic-bezier(0.19, 1, 0.22, 1);
   -moz-transition: opacity 0.3s cubic-bezier(0.19, 1, 0.22, 1), -moz-transform 550ms cubic-bezier(0.19, 1, 0.22, 1);
   -o-transition: opacity 0.3s cubic-bezier(0.19, 1, 0.22, 1), -o-transform 550ms cubic-bezier(0.19, 1, 0.22, 1);
-  transition: opacity 0.3s cubic-bezier(0.19, 1, 0.22, 1), transform 550ms cubic-bezier(0.19, 1, 0.22, 1); }
+  transition: opacity 0.3s cubic-bezier(0.19, 1, 0.22, 1), transform 550ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
 #game #quizota-result.show {
   display: block;
 }
+
 #game #quizota-result.show.anim {
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
@@ -39,10 +42,13 @@
   -o-transition: opacity 3s cubic-bezier(0.19, 1, 0.22, 1), -o-transform 550ms cubic-bezier(0.19, 1, 0.22, 1);
   transition: opacity 3s cubic-bezier(0.19, 1, 0.22, 1), transform 550ms cubic-bezier(0.19, 1, 0.22, 1);
   opacity: 1;
-  filter: alpha(opacity=100); }
-#game #quizota-result .border {
-  /* border: 1px solid rgba(255, 255, 255, 0.1); */
+  filter: alpha(opacity=100);
 }
+
+#game #quizota-result .border {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 #game #quizota-result .border i {
   position: absolute;
   top: -65px;
@@ -51,23 +57,33 @@
   -moz-transform: translate3d(-50%, 0, 0);
   -ms-transform: translate3d(-50%, 0, 0);
   -o-transform: translate3d(-50%, 0, 0);
-  transform: translate3d(-50%, 0, 0); }
+  transform: translate3d(-50%, 0, 0);
+}
+
 #game #quizota-result .border .bg {
   width: 100%;
   height: 100%;
-  background: #000000;
+  background: #59d4ec;
   position: absolute;
   top: 0;
-  left: 0; }
+  left: 0;
+}
+
 #game #quizota-result .border .tlb, #game #quizota-result .border .tl, #game #quizota-result .border .trb, #game #quizota-result .border .tr, #game #quizota-result .border .brb, #game #quizota-result .border .br, #game #quizota-result .border .blb, #game #quizota-result .border .bl {
   background: white;
-  position: absolute; }
+  position: absolute;
+}
+
 #game #quizota-result .border .tlb, #game #quizota-result .border .trb, #game #quizota-result .border .brb, #game #quizota-result .border .blb {
   height: 10px;
-  width: 1px; }
+  width: 1px;
+}
+
 #game #quizota-result .border .tl, #game #quizota-result .border .tr, #game #quizota-result .border .br, #game #quizota-result .border .bl {
   width: 10px;
-  height: 1px; }
+  height: 1px;
+}
+
 #game #quizota-result .border .tlb, #game #quizota-result .border .tl {
   -webkit-animation: blink 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) 400ms forwards;
   -moz-animation: blink 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) 400ms forwards;
@@ -75,7 +91,9 @@
   -o-animation: blink 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) 400ms forwards;
   animation: blink 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) 400ms forwards;
   top: -1px;
-  left: -1px; }
+  left: -1px;
+}
+
 #game #quizota-result .border .trb, #game #quizota-result .border .tr {
   -webkit-animation: blink 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) 500ms forwards;
   -moz-animation: blink 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) 500ms forwards;
@@ -83,7 +101,9 @@
   -o-animation: blink 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) 500ms forwards;
   animation: blink 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) 500ms forwards;
   top: -1px;
-  right: -1px; }
+  right: -1px;
+}
+
 #game #quizota-result .border .brb, #game #quizota-result .border .br {
   -webkit-animation: blink 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) 450ms forwards;
   -moz-animation: blink 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) 450ms forwards;
@@ -91,7 +111,9 @@
   -o-animation: blink 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) 450ms forwards;
   animation: blink 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) 450ms forwards;
   bottom: -1px;
-  right: -1px; }
+  right: -1px;
+}
+
 #game #quizota-result .border .blb, #game #quizota-result .border .bl {
   -webkit-animation: blink 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) 550ms forwards;
   -moz-animation: blink 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) 550ms forwards;
@@ -99,14 +121,18 @@
   -o-animation: blink 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) 550ms forwards;
   animation: blink 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) 550ms forwards;
   bottom: -1px;
-  left: -1px; }
+  left: -1px;
+}
+
 #game #quizota-result .catch, #game #quizota-result .band {
   opacity: 0;
   filter: alpha(opacity=0);
   -webkit-transition: opacity 0.3s cubic-bezier(0.19, 1, 0.22, 1);
   -moz-transition: opacity 0.3s cubic-bezier(0.19, 1, 0.22, 1);
   -o-transition: opacity 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-  transition: opacity 0.3s cubic-bezier(0.19, 1, 0.22, 1); }
+  transition: opacity 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
 #game #quizota-result .catch.anim, #game #quizota-result .band.anim {
   -webkit-transition: opacity 2s cubic-bezier(0.19, 1, 0.22, 1);
   -webkit-transition-delay: 1000ms;
@@ -114,91 +140,141 @@
   -o-transition: opacity 2s cubic-bezier(0.19, 1, 0.22, 1) 1000ms;
   transition: opacity 2s cubic-bezier(0.19, 1, 0.22, 1) 1000ms;
   opacity: 1;
-  filter: alpha(opacity=100); }
+  filter: alpha(opacity=100);
+}
+
 #game #quizota-result .title-text {
   margin-top: 25px;
   display: none;
-  font-size: 54px; }
+  font-size: 29px;
+  line-height:1.2;
+}
+
 #game #quizota-result .title-text .gamer-name {
-  font-family: "neciablack", Arial, sans-serif;
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
-  color: #faa21b; }
+  color: rgb(255, 84, 84);
+  background: rgba(255,255,255,0.7);
+}
+
 #game #quizota-result .title-text .comment {
   margin-top: 8px;
-  font-size: 26px; }
+  font-size: 26px;
+}
+
 #game #quizota-result.gold .title-text-win, #game #quizota-result.platinium .title-text-win, #game #quizota-result.diamond .title-text-win {
-  display: block; }
+  display: block;
+}
+
 #game #quizota-result.bronze .title-text-loose, #game #quizota-result.silver .title-text-loose {
-  display: block; }
+  display: block;
+}
+
 #game #quizota-result.bronze .border i {
   background-image: url("../../../../../static/img/sprites/common/1x.png");
   background-position: -254px 0px;
   width: 92px;
-  height: 92px; }
+  height: 92px;
+}
+
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
   #game #quizota-result.bronze .border i {
     background-image: url("../../../../../static/img/sprites/common/2x.png");
-    background-size: 500px 355px; } }
+    background-size: 500px 355px;
+  }
+}
+
 #game #quizota-result.silver .border i {
   background-image: url("../../../../../static/img/sprites/common/1x.png");
   background-position: -254px -96px;
   width: 91px;
-  height: 91px; }
+  height: 91px;
+}
+
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
   #game #quizota-result.silver .border i {
     background-image: url("../../../../../static/img/sprites/common/2x.png");
-    background-size: 500px 355px; } }
+    background-size: 500px 355px;
+  }
+}
+
 #game #quizota-result.gold .border i {
   background-image: url("../../../../../static/img/sprites/common/1x.png");
   background-position: 0px -208px;
   width: 90px;
-  height: 92px; }
+  height: 92px;
+}
+
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
   #game #quizota-result.gold .border i {
     background-image: url("../../../../../static/img/sprites/common/2x.png");
-    background-size: 500px 355px; } }
+    background-size: 500px 355px;
+  }
+}
+
 #game #quizota-result.platinium .border i {
   background-image: url("../../../../../static/img/sprites/common/1x.png");
   background-position: 0px -55px;
   width: 94px;
-  height: 109px; }
+  height: 109px;
+}
+
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
   #game #quizota-result.platinium .border i {
     background-image: url("../../../../../static/img/sprites/common/2x.png");
-    background-size: 500px 355px; } }
+    background-size: 500px 355px;
+  }
+}
+
 #game #quizota-result.diamond .border i {
   background-image: url("../../../../../static/img/sprites/common/1x.png");
   background-position: -98px -55px;
   width: 91px;
-  height: 109px; }
+  height: 109px;
+}
+
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
   #game #quizota-result.diamond .border i {
     background-image: url("../../../../../static/img/sprites/common/2x.png");
-    background-size: 500px 355px; } }
+    background-size: 500px 355px;
+  }
+}
+
 #game #quizota-result .score {
-  font-size: 88px; }
+  line-height: 1.2;
+  margin-bottom: 0;
+  font-size: 60px;
+}
+
 #game #quizota-result .score span {
-  font-size: 58px; }
+  font-size: 20px;
+}
+
 #game #quizota-result .band {
   margin: 60px auto 0 auto;
   width: 316px;
   height: 1px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.1); }
+  background: rgba(255, 255, 255, 0.1);
+}
+
 #game #quizota-result .band .l, #game #quizota-result .band .r {
   position: absolute;
   top: 0;
   width: 24px;
   height: 1px;
-  background: white; }
+  background: white;
+}
+
 #game #quizota-result .band .l {
   left: 0;
   -webkit-transform: translate3d(158px, 0, 0);
   -moz-transform: translate3d(158px, 0, 0);
   -ms-transform: translate3d(158px, 0, 0);
   -o-transform: translate3d(158px, 0, 0);
-  transform: translate3d(158px, 0, 0); }
+  transform: translate3d(158px, 0, 0);
+}
+
 #game #quizota-result .band .l.in {
   -webkit-transform: translate3d(-12px, 0, 0);
   -moz-transform: translate3d(-12px, 0, 0);
@@ -209,14 +285,18 @@
   -webkit-transition-delay: 1000ms;
   -moz-transition: -moz-transform 1200ms cubic-bezier(0.19, 1, 0.22, 1) 1000ms;
   -o-transition: -o-transform 1200ms cubic-bezier(0.19, 1, 0.22, 1) 1000ms;
-  transition: transform 1200ms cubic-bezier(0.19, 1, 0.22, 1) 1000ms; }
+  transition: transform 1200ms cubic-bezier(0.19, 1, 0.22, 1) 1000ms;
+}
+
 #game #quizota-result .band .r {
   right: 0;
   -webkit-transform: translate3d(-158px, 0, 0);
   -moz-transform: translate3d(-158px, 0, 0);
   -ms-transform: translate3d(-158px, 0, 0);
   -o-transform: translate3d(-158px, 0, 0);
-  transform: translate3d(-158px, 0, 0); }
+  transform: translate3d(-158px, 0, 0);
+}
+
 #game #quizota-result .band .r.in {
   -webkit-transform: translate3d(12px, 0, 0);
   -moz-transform: translate3d(12px, 0, 0);
@@ -227,4 +307,8 @@
   -webkit-transition-delay: 1000ms;
   -moz-transition: -moz-transform 1200ms cubic-bezier(0.19, 1, 0.22, 1) 1000ms;
   -o-transition: -o-transform 1200ms cubic-bezier(0.19, 1, 0.22, 1) 1000ms;
-  transition: transform 1200ms cubic-bezier(0.19, 1, 0.22, 1) 1000ms; }
+  transition: transform 1200ms cubic-bezier(0.19, 1, 0.22, 1) 1000ms;
+}
+#game .gotogame {
+  margin-top: 30px;
+}

@@ -13,6 +13,8 @@ export const NEW_QUESTION = 'NEW_QUESTION'
 export const SEND_ANWSER = 'SEND_ANWSER'
 export const SUBMIT_ANWSER = 'SUBMIT_ANWSER'
 export const IN_GAME = 'IN_GAME'
+export const GAME_ACTIVITY = 'GAME_ACTIVITY'
+export const END_GAME_SESSION = 'END_GAME_SESSION'
 
 // User
 export const USER_INFO = 'USER_INFO'

@@ -1,0 +1,17 @@
+.playButton-enter {
+  opacity: 0.01;
+}
+
+.playButton-enter.playButton-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.playButton-leave {
+  opacity: 1;
+}
+
+.playButton-leave.playButton-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}

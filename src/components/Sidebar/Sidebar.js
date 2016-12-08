@@ -108,7 +108,7 @@ class Sidebar extends React.Component {
                     Thắng
                   </div>
                   <div className='GameStats__percentage GameStats__percentage--won u-antialiased'>
-                    <span>82</span>
+                    <span>{ this.state.winRate }</span>
                     <spa>%</spa>
                   </div>
                 </div>
@@ -118,7 +118,7 @@ class Sidebar extends React.Component {
                     Thua
                   </div>
                   <div className='GameStats__percentage GameStats__percentage--lost u-antialiased'>
-                    <span>15</span>
+                    <span>{ this.state.loseRate }</span>
                     <spa>%</spa>
                   </div>
                 </div>
