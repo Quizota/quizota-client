@@ -1,5 +1,6 @@
 import {
-  BOARD_STATUS
+  BOARD_STATUS,
+  IN_GAME
 } from '../actions/constants'
 let _boardStatus = `idle`
 // ------------------------------------
@@ -9,30 +10,26 @@ let _boardStatus = `idle`
 
 let initialState = {
   boardStatus: `idle`,
-  myGameInfo: {
-    score: 0,
-    userName: 'Hoi'
-  },
-  vsGameInfo: {
-    score: 0,
-    userName: 'Phuong'
-  }
+  players: []
 }
 
 export default function gameInfoReducer (state = initialState, action) {
+  var gameAction = action.data
+  let gameStatus = ['playerJoinBoardSuccess', 'newPlayerJoinBoard', 'waitingStartGame', 'startGame', 'endGame']
+  let inGameStatus = ['syncGameData', 'processActionSuccess']
   switch (action.type) {
     case BOARD_STATUS:
-      let gameAction = action.data
-      let gameStatus = ['playerJoinBoardSuccess', 'newPlayerJoinBoard', 'waitingStartGame', 'startGame', 'endGame']
-      let inGameStatus = ['syncGameData', 'processActionSuccess']
       if (gameStatus.includes(gameAction)) {
         _boardStatus = action.data
       } else if (inGameStatus.includes(action.data)) {
         _boardStatus = `inGame`
       }
-      return Object.assign({}, state, {
-        boardStatus: _boardStatus
-      })
+      return { ...state, boardStatus: _boardStatus }
+    case IN_GAME:
+      console.log('go IN_GAME')
+      return { ...state,
+        players: action.data.players
+      }
     default:
       return state
   }

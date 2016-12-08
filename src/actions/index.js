@@ -7,7 +7,8 @@ import {
   LOGOUT,
   REQUEST_ERROR,
   CLEAR_ERROR,
-  USER_INFO
+  USER_INFO,
+  IN_GAME
 } from './constants'
 
 const SOCKET_IO_MESSAGE = 'SOCKET_IO_MESSAGE'
@@ -169,6 +170,12 @@ function handleUserInfo (data) {
   }
 }
 
+function handlerInGame (data) {
+  return {
+    type: IN_GAME,
+    data
+  }
+}
 export function listener (dispatch) {
   // This function is the actual event handler which will receive socket data.
   return function (resData) {
@@ -190,10 +197,11 @@ export function listener (dispatch) {
     } else if (resData.code === `getMyInfo` || resData.code === `loginSuccess`) {
       console.log(resData.data)
       dispatch(handleUserInfo(resData.data))
+    } else if (resData.code === `waitingStartGame`) {
+      dispatch(handlerInGame(resData.data))
     }
-
-    console.log('Handle Socket code:', resData.code)
     dispatch(handleBoardStatus(resData.code))
+
     if (resData.code === 'syncGameData' || resData.code === 'startGame') {
       if (resData.data.data.newQuestion !== undefined) {
         let newLocationData = resData.data.data.newQuestion

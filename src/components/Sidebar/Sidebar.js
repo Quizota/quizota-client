@@ -9,13 +9,13 @@ class Sidebar extends React.Component {
     this.state = {
       winRate: null,
       totalGame: null,
-      loseRate: null,
+      loseRate: null
     }
   }
-  componentDidMount() {
+  componentDidMount () {
     this.calculateStatic()
   }
-  calculateStatic() {
+  calculateStatic () {
     var totalGame = 0,
       totalWin = 0,
       totalLose = 0,
@@ -33,11 +33,11 @@ class Sidebar extends React.Component {
     } else if (totalWin === 0) {
       winRate === 0
       loseRate === 100
-    } else if(totalLose === 0){
+    } else if (totalLose === 0) {
       winRate === 100
       loseRate === 0
     } else {
-      winRate = (totalWin/totalLose*100).toFixed(0)
+      winRate = (totalWin / totalLose * 100).toFixed(0)
       loseRate = 100 - winRate
     }
     this.setState({
@@ -48,7 +48,7 @@ class Sidebar extends React.Component {
       winRate: winRate
     })
   }
-  render() {
+  render () {
     return (
       <div className='dashboard__sidebar'>
         <div className='userProfile '>
@@ -57,7 +57,7 @@ class Sidebar extends React.Component {
               <div className='ProfilePicture'>
 
                 <img src='https://pickaface.net/gallery/avatar/unr_natofr_161208_0025_9o7a3x.png' alt='' className='ProfileHeader__image u-circular' height='120'
-                     width='120' />
+                  width='120' />
               </div>
             </div>
             <div className='ProfileHeader__nameBox'>
@@ -67,7 +67,7 @@ class Sidebar extends React.Component {
               Vừa gia nhập
             </div>
             <div className='ProfileHeader__locationBox'>
-          <span className='ProfileHeader__locationBox__flag u-circular'
+              <span className='ProfileHeader__locationBox__flag u-circular'
                 style={{
                   backgroundImage: 'url(/img/flag/vi.png)',
                   backgroundColor: 'rgb(204, 204, 204)',
@@ -131,10 +131,10 @@ class Sidebar extends React.Component {
             <div className='ProfileSidebar__list u-clearfix'>
               <div className='ProfileSidebar__list__item'>
                 <div className='ProfileSidebar__achievementIconWrapper'>
-              <span className='AchievementIcon'>
-                <img src='/img/archive/archive1.png' alt=''
-                     className='ProfileSidebar__achievement__icon' />
-              </span>
+                  <span className='AchievementIcon'>
+                    <img src='/img/archive/archive1.png' alt=''
+                      className='ProfileSidebar__achievement__icon' />
+                  </span>
                 </div>
                 <div className='ProfileSidebar__achievement__name'>
                   Archive 1
@@ -142,10 +142,10 @@ class Sidebar extends React.Component {
               </div>
               <div className='ProfileSidebar__list__item'>
                 <div className='ProfileSidebar__achievementIconWrapper'>
-              <span className='AchievementIcon'>
-                <img src='/img/archive/archive2.png' alt=''
-                     className='ProfileSidebar__achievement__icon' />
-              </span>
+                  <span className='AchievementIcon'>
+                    <img src='/img/archive/archive2.png' alt=''
+                      className='ProfileSidebar__achievement__icon' />
+                  </span>
                 </div>
                 <div className='ProfileSidebar__achievement__name'>
                   Archive 2
@@ -153,10 +153,10 @@ class Sidebar extends React.Component {
               </div>
               <div className='ProfileSidebar__list__item'>
                 <div className='ProfileSidebar__achievementIconWrapper'>
-              <span className='AchievementIcon'>
-                <img src='/img/archive/archive3.png' alt=''
-                     className='ProfileSidebar__achievement__icon' />
-              </span>
+                  <span className='AchievementIcon'>
+                    <img src='/img/archive/archive3.png' alt=''
+                      className='ProfileSidebar__achievement__icon' />
+                  </span>
                 </div>
                 <div className='ProfileSidebar__achievement__name'>
                   Archive 3
@@ -164,10 +164,10 @@ class Sidebar extends React.Component {
               </div>
               <div className='ProfileSidebar__list__item'>
                 <div className='ProfileSidebar__achievementIconWrapper'>
-              <span className='AchievementIcon'>
-                <img src='/img/archive/archive4.png' alt=''
-                     className='ProfileSidebar__achievement__icon' />
-              </span>
+                  <span className='AchievementIcon'>
+                    <img src='/img/archive/archive4.png' alt=''
+                      className='ProfileSidebar__achievement__icon' />
+                  </span>
                 </div>
                 <div className='ProfileSidebar__achievement__name'>
                   Archive 4
@@ -185,9 +185,9 @@ class Sidebar extends React.Component {
                 <div className='archiveFullLink myArchives__archive'>
                   <div className='archiveIconLink'>
                     <a href='#'>
-                  <span>
-                    <img src='/img/archive/archive_icon.jpg' alt='' />
-                  </span>
+                      <span>
+                        <img src='/img/archive/archive_icon.jpg' alt='' />
+                      </span>
                     </a>
                     <span className='archiveIconLabel'>Trò chơi 1</span>
                   </div>

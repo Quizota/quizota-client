@@ -19,7 +19,7 @@ let initialState = {
     elo: 0,
     level: 0,
     gameUnlocked: [],
-    avatar: "images/avatar/default.png"
+    avatar: 'images/avatar/default.png'
   },
   gameList: []
 }

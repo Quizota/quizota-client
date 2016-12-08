@@ -16,7 +16,7 @@ class AppContainer extends Component {
     super(props)
   }
   componentDidMount () {
-    emitData('data', { "cmd": "getMyInfo", "data": {} })
+    emitData('data', { 'cmd': 'getMyInfo', 'data': {} })
   }
   componentWillUnmount () {
 

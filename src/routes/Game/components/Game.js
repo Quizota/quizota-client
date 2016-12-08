@@ -79,7 +79,7 @@ class Game extends React.Component {
             <div className='home__findingMatch home__activity'>
               <div className='score-overlay' />
               <div id='quizota-score' className='opaque'>
-                <div className='name-alpha' style={nameAlphaCSS}>Hoi</div>
+                <div className='name-alpha' style={nameAlphaCSS}>{this.props.gameInfo.players[0].displayName}</div>
                 <span className='score-alpha-glow score-glow' />
                 <div className='score-alpha'>
                   <span style={scoreAlphaGlowlightCSS}>
@@ -102,7 +102,7 @@ class Game extends React.Component {
                     <i className='glow' />
                   </span>
                 </div>
-                <div className='name-vs'>Phuong</div>
+                <div className='name-vs'>{this.props.gameInfo.players[1].displayName}</div>
               </div>
               <div className='gameInner' style={{ height: `100%` }}>
                 <GameProcessView isStep={this.props.gameInfo.boardStatus} />

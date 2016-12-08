@@ -12,6 +12,7 @@ export const BOARD_STATUS = 'BOARD_STATUS'
 export const NEW_QUESTION = 'NEW_QUESTION'
 export const SEND_ANWSER = 'SEND_ANWSER'
 export const SUBMIT_ANWSER = 'SUBMIT_ANWSER'
+export const IN_GAME = 'IN_GAME'
 
 // User
 export const USER_INFO = 'USER_INFO'
