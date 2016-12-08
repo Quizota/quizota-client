@@ -15,6 +15,7 @@ export const SUBMIT_ANWSER = 'SUBMIT_ANWSER'
 export const IN_GAME = 'IN_GAME'
 export const GAME_ACTIVITY = 'GAME_ACTIVITY'
 export const END_GAME_SESSION = 'END_GAME_SESSION'
+export const END_GAME_RESULT = 'END_GAME_RESULT'
 
 // User
 export const USER_INFO = 'USER_INFO'

@@ -10,7 +10,8 @@ import {
   USER_INFO,
   IN_GAME,
   GAME_ACTIVITY,
-  END_GAME_SESSION
+  END_GAME_SESSION,
+  END_GAME_RESULT
 } from './constants'
 
 const SOCKET_IO_MESSAGE = 'SOCKET_IO_MESSAGE'
@@ -194,6 +195,13 @@ function handlerEndGameSession(data) {
 
 }
 
+function handlerEndGameResult(data) {
+  return {
+    type: END_GAME_RESULT,
+    data
+  }
+}
+
 export function listener (dispatch) {
   // This function is the actual event handler which will receive socket data.
   return function (resData) {
@@ -221,6 +229,8 @@ export function listener (dispatch) {
       dispatch(handlerGameScore(resData.data))
     } else if (resData.code == `startGame`) {
       dispatch(handlerEndGameSession(resData.data))
+    } else if (resData.code == `endGame`) {
+      dispatch(handlerEndGameResult(resData.data))
     }
     dispatch(handleBoardStatus(resData.code))
 

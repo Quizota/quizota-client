@@ -33,7 +33,7 @@ class GameResultView extends React.Component {
         <div className='border'>
           <i />
           <span className='bg' />
-          <p className='score'>{this.props.gameInfo.endGameInfo.point} <span>pts</span> / {this.props.gameInfo.endGameInfo.point} <span>+ 10 Elo</span></p>
+          <p className='score'>{this.props.gameInfo.endGameInfo.myPoint} <span>pts</span> / + {this.props.gameInfo.endGameInfo.eloAdded}<span> Elo</span></p>
           <span className='tlb' />
           <span className='tl' />
           <span className='trb' />

@@ -2,7 +2,8 @@ import {
   BOARD_STATUS,
   IN_GAME,
   GAME_ACTIVITY,
-  END_GAME_SESSION
+  END_GAME_SESSION,
+  END_GAME_RESULT
 } from '../actions/constants'
 let _boardStatus = `idle`
 
@@ -43,9 +44,8 @@ let initialState = {
   myScorePercentage: {},
   vsScorePercentage: {},
   endGameInfo: {
-    point: 920,
-    elo: 1300,
-    eloAdded: 13
+    point: 0,
+    eloAdded: 0
   }
 }
 
@@ -93,6 +93,13 @@ export default function gameInfoReducer (state = initialState, action) {
         vsScore: {},
         vsScorePercentage: {},
         vsScorePercentage: {},
+      }
+    case END_GAME_RESULT:
+      return { ...state,
+        endGameInfo: {
+          point: action.data.scores[userInfo["userName"]],
+          eloAdded: action.data.bonusElo
+        }
       }
     default:
       return state

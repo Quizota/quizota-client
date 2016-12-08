@@ -42,7 +42,7 @@ export default function userInfoReducer (state = initialState, action) {
           elo: userProfile.elo,
           level: userProfile.level,
           gameUnlocked: userProfile.gameUnlocked,
-          avatar: userProfile.avatar
+          avatar: ''
         },
         gameList: gameList
       })
