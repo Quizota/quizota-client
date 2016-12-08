@@ -55,7 +55,7 @@ class Sidebar extends React.Component {
           <div className='userProfile__info ProfileHeader'>
             <div className='ProfileHeader__image__container'>
               <div className='ProfilePicture'>
-                <img src={this.props.userInfo.profile.avatar} alt='' className='ProfileHeader__image u-circular' height='120'
+                <img src="https://pickaface.net/gallery/avatar/anonymify51d5d764d202e.png" alt='' className='ProfileHeader__image u-circular' height='120'
                   width='120' />
               </div>
             </div>
