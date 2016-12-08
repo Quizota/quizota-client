@@ -10,7 +10,11 @@ let _boardStatus = `idle`
 
 let initialState = {
   boardStatus: `idle`,
-  players: []
+  players: [{
+    "displayName": "",
+  }, {
+    "displayName": "",
+  }]
 }
 
 export default function gameInfoReducer (state = initialState, action) {
